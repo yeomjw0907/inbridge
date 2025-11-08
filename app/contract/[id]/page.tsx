@@ -46,12 +46,12 @@ export default function ContractPage() {
         setSignedByBrand(contractData.signed_by_brand)
         setSignedByInfluencer(contractData.signed_by_influencer)
       } else if (proposalData) {
-        // 계약서 생성
+        // Generate contract
         setLoading(true)
         try {
           const content = await generateContract({
-            brandName: proposalData.brands?.company_name || "브랜드",
-            influencerName: proposalData.influencers?.channel_name || "인플루언서",
+            brandName: proposalData.brands?.company_name || "Brand",
+            influencerName: proposalData.influencers?.channel_name || "Influencer",
             budget: proposalData.budget,
             duration: proposalData.schedule,
             deliverables: [],
@@ -88,7 +88,7 @@ export default function ContractPage() {
 
     if (!user) {
       toast({
-        title: "로그인이 필요합니다",
+        title: "Login required",
         variant: "destructive",
       })
       return
@@ -106,7 +106,7 @@ export default function ContractPage() {
 
     if (error) {
       toast({
-        title: "오류가 발생했습니다",
+        title: "An error occurred",
         description: error.message,
         variant: "destructive",
       })
@@ -119,7 +119,7 @@ export default function ContractPage() {
       setSignedByInfluencer(true)
     }
 
-    // 둘 다 서명했으면 상태 업데이트
+    // Update status if both parties have signed
     if ((isBrand && signedByInfluencer) || (!isBrand && signedByBrand)) {
       await supabase
         .from("contracts")
@@ -127,8 +127,8 @@ export default function ContractPage() {
         .eq("id", contract.id)
 
       toast({
-        title: "계약서가 완료되었습니다 ✅",
-        description: "결제 페이지로 이동합니다",
+        title: "Contract completed ✅",
+        description: "Redirecting to payment page",
       })
 
       setTimeout(() => {
@@ -136,8 +136,8 @@ export default function ContractPage() {
       }, 2000)
     } else {
       toast({
-        title: "서명이 완료되었습니다",
-        description: "상대방의 서명을 기다려주세요",
+        title: "Signature completed",
+        description: "Please wait for the other party's signature",
       })
     }
   }
@@ -145,7 +145,7 @@ export default function ContractPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>계약서 생성 중...</p>
+        <p>Generating contract...</p>
       </div>
     )
   }
@@ -157,46 +157,46 @@ export default function ContractPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 mb-6">
             <FileText className="w-6 h-6 text-primary" />
-            <h1 className="text-2xl font-bold">계약서</h1>
+            <h1 className="text-2xl font-bold">Contract</h1>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>계약서 내용</CardTitle>
+              <CardTitle>Contract Content</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="prose max-w-none mb-6">
                 <pre className="whitespace-pre-wrap text-sm bg-gray-50 p-6 rounded-lg">
-                  {contractContent || "계약서 내용을 생성하는 중..."}
+                  {contractContent || "Generating contract content..."}
                 </pre>
               </div>
 
               <div className="border-t pt-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold">브랜드 서명</p>
+                    <p className="font-semibold">Brand Signature</p>
                     <p className="text-sm text-gray-600">
-                      {proposal?.brands?.company_name || "브랜드"}
+                      {proposal?.brands?.company_name || "Brand"}
                     </p>
                   </div>
                   {signedByBrand ? (
                     <CheckCircle className="w-6 h-6 text-green-500" />
                   ) : (
-                    <Button onClick={handleSign}>서명하기</Button>
+                    <Button onClick={handleSign}>Sign</Button>
                   )}
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold">인플루언서 서명</p>
+                    <p className="font-semibold">Influencer Signature</p>
                     <p className="text-sm text-gray-600">
-                      {proposal?.influencers?.channel_name || "인플루언서"}
+                      {proposal?.influencers?.channel_name || "Influencer"}
                     </p>
                   </div>
                   {signedByInfluencer ? (
                     <CheckCircle className="w-6 h-6 text-green-500" />
                   ) : (
-                    <Button onClick={handleSign}>서명하기</Button>
+                    <Button onClick={handleSign}>Sign</Button>
                   )}
                 </div>
               </div>

@@ -48,7 +48,7 @@ export default function ChatPage() {
 
     fetchData()
 
-    // Realtime 구독
+    // Realtime subscription
     const channel = supabase
       .channel(`chat:${roomId}`)
       .on(
@@ -116,11 +116,11 @@ export default function ChatPage() {
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">채팅</h1>
+            <h1 className="text-2xl font-bold">Chat</h1>
             {room && (
               <Button onClick={handleCreateContract}>
                 <FileText className="w-4 h-4 mr-2" />
-                계약서 생성하기
+                Create Contract
               </Button>
             )}
           </div>
@@ -158,7 +158,7 @@ export default function ChatPage() {
             <div className="border-t p-4">
               <div className="flex gap-2">
                 <Input
-                  placeholder="메시지를 입력하세요..."
+                  placeholder="Type a message..."
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyDown={(e) => {

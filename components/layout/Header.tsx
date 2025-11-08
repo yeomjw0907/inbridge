@@ -21,7 +21,7 @@ export function Header() {
         setUser(user)
       } catch (error) {
         console.warn("Auth error:", error)
-        // 에러가 발생해도 계속 진행
+        // Continue even if error occurs
       }
     }
 
@@ -62,7 +62,7 @@ export function Header() {
               pathname === "/influencers" ? "text-primary" : "text-primary/80"
             }`}
           >
-            인플루언서 찾기
+            Find Influencers
           </Link>
           <Link
             href="/blog"
@@ -70,7 +70,7 @@ export function Header() {
               pathname === "/blog" ? "text-primary" : "text-primary/80"
             }`}
           >
-            블로그
+            Blog
           </Link>
           <Link
             href="/contact"
@@ -78,7 +78,7 @@ export function Header() {
               pathname === "/contact" ? "text-primary" : "text-primary/80"
             }`}
           >
-            문의
+            Contact
           </Link>
         </nav>
 
@@ -88,23 +88,23 @@ export function Header() {
               <NotificationBadge />
               <Link href="/mypage">
                 <Button variant="ghost" size="sm">
-                  마이페이지
+                  My Page
                 </Button>
               </Link>
               <Button variant="outline" size="sm" onClick={handleLogout}>
-                로그아웃
+                Logout
               </Button>
             </>
           ) : (
             <div className="flex items-center gap-2">
               <Link href="/signup">
                 <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-white [&:hover]:bg-primary [&:hover]:text-white">
-                  로그인/회원가입
+                  Login / Sign up
                 </Button>
               </Link>
               <Link href="/signup">
                 <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
-                  회원가입
+                  Sign Up
                 </Button>
               </Link>
             </div>

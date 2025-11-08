@@ -26,12 +26,12 @@ export default function CampaignPage() {
           .eq("id", id)
           .single()
 
-        // 더미 데이터 (Supabase에 데이터가 없을 때)
+        // Dummy data (when Supabase has no data)
         if (!campaignData) {
           const dummyCampaigns: any = {
             "1": {
               id: "1",
-              brand_name: "패션 브랜드 A",
+              brand_name: "Fashion Brand A",
               start_date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
               end_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
               status: "completed",
@@ -44,11 +44,11 @@ export default function CampaignPage() {
                 { url: "https://example.com/content2.jpg", is_private: false },
                 { url: "https://example.com/content3.jpg", is_private: true },
               ],
-              ai_report: "이번 캠페인은 예상보다 높은 참여율을 보였습니다. 타겟 오디언스의 반응이 매우 긍정적이며, 브랜드 인지도 향상에 기여했습니다.",
+              ai_report: "This campaign showed higher engagement rates than expected. The target audience's response was very positive, contributing to increased brand awareness.",
             },
             "2": {
               id: "2",
-              brand_name: "뷰티 브랜드 B",
+              brand_name: "Beauty Brand B",
               start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
               end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
               status: "ongoing",
@@ -60,11 +60,11 @@ export default function CampaignPage() {
                 { url: "https://example.com/content4.jpg", is_private: false },
                 { url: "https://example.com/content5.jpg", is_private: false },
               ],
-              ai_report: "현재 진행 중인 캠페인으로, 초기 성과가 기대치를 상회하고 있습니다.",
+              ai_report: "Currently ongoing campaign with initial performance exceeding expectations.",
             },
             "3": {
               id: "3",
-              brand_name: "라이프스타일 브랜드 C",
+              brand_name: "Lifestyle Brand C",
               start_date: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
               end_date: new Date(Date.now() + 40 * 24 * 60 * 60 * 1000).toISOString(),
               status: "private",
@@ -85,11 +85,11 @@ export default function CampaignPage() {
         }
       } catch (error) {
         console.error("Error fetching campaign:", error)
-        // 에러 발생 시 더미 데이터 사용
+        // Use dummy data on error
         const dummyCampaigns: any = {
           "1": {
             id: "1",
-            brand_name: "패션 브랜드 A",
+            brand_name: "Fashion Brand A",
             start_date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             status: "completed",
@@ -102,11 +102,11 @@ export default function CampaignPage() {
               { url: "https://example.com/content2.jpg", is_private: false },
               { url: "https://example.com/content3.jpg", is_private: true },
             ],
-            ai_report: "이번 캠페인은 예상보다 높은 참여율을 보였습니다. 타겟 오디언스의 반응이 매우 긍정적이며, 브랜드 인지도 향상에 기여했습니다.",
+            ai_report: "This campaign showed higher engagement rates than expected. The target audience's response was very positive, contributing to increased brand awareness.",
           },
           "2": {
             id: "2",
-            brand_name: "뷰티 브랜드 B",
+            brand_name: "Beauty Brand B",
             start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
             status: "ongoing",
@@ -118,11 +118,11 @@ export default function CampaignPage() {
               { url: "https://example.com/content4.jpg", is_private: false },
               { url: "https://example.com/content5.jpg", is_private: false },
             ],
-            ai_report: "현재 진행 중인 캠페인으로, 초기 성과가 기대치를 상회하고 있습니다.",
+            ai_report: "Currently ongoing campaign with initial performance exceeding expectations.",
           },
           "3": {
             id: "3",
-            brand_name: "라이프스타일 브랜드 C",
+            brand_name: "Lifestyle Brand C",
             start_date: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() + 40 * 24 * 60 * 60 * 1000).toISOString(),
             status: "private",
@@ -147,7 +147,7 @@ export default function CampaignPage() {
   if (!campaign) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>로딩 중...</p>
+        <p>Loading...</p>
       </div>
     )
   }
@@ -165,12 +165,12 @@ export default function CampaignPage() {
               className="text-primary hover:bg-primary/5"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              이전
+              Back
             </Button>
           </div>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2 text-gray-900">{campaign.brand_name || "캠페인"}</h1>
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">{campaign.brand_name || "Campaign"}</h1>
               <p className="text-primary/80">
                 {formatDate(campaign.start_date)} - {formatDate(campaign.end_date)}
               </p>
@@ -185,10 +185,10 @@ export default function CampaignPage() {
               }`}
             >
               {campaign.status === "completed"
-                ? "완료"
+                ? "Completed"
                 : campaign.status === "ongoing"
-                ? "진행중"
-                : "검토중"}
+                ? "Ongoing"
+                : "Pending"}
             </span>
           </div>
 
@@ -197,7 +197,7 @@ export default function CampaignPage() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Users className="w-5 h-5 text-primary" />
-                  <CardTitle>도달수</CardTitle>
+                  <CardTitle>Reach</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
@@ -208,7 +208,7 @@ export default function CampaignPage() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-primary" />
-                  <CardTitle>참여율</CardTitle>
+                  <CardTitle>Engagement Rate</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
@@ -219,12 +219,12 @@ export default function CampaignPage() {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-primary" />
-                  <CardTitle>예산</CardTitle>
+                  <CardTitle>Budget</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <p className="text-3xl font-bold">
-                  {(campaign.budget || 0).toLocaleString()}원
+                  ${(campaign.budget || 0).toLocaleString()}
                 </p>
               </CardContent>
             </Card>
@@ -232,19 +232,19 @@ export default function CampaignPage() {
 
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>성과 그래프</CardTitle>
+              <CardTitle>Performance Graph</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64 flex items-center justify-center text-gray-500">
-                그래프 영역 (Chart.js 구현 필요)
+                Graph area (Chart.js implementation needed)
               </div>
             </CardContent>
           </Card>
 
-          {/* 제작된 콘텐츠 */}
+          {/* Created Content */}
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>제작된 콘텐츠</CardTitle>
+              <CardTitle>Created Content</CardTitle>
             </CardHeader>
             <CardContent>
               {campaign.content_urls && campaign.content_urls.length > 0 ? (
@@ -262,7 +262,7 @@ export default function CampaignPage() {
                           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center">
                             <div className="text-center">
                               <FileImage className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                              <p className="text-sm font-semibold text-gray-700">비공개</p>
+                              <p className="text-sm font-semibold text-gray-700">Private</p>
                             </div>
                           </div>
                         )}
@@ -275,7 +275,7 @@ export default function CampaignPage() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-primary/60">
-                  제작된 콘텐츠가 없습니다
+                  No content created yet
                 </div>
               )}
             </CardContent>
@@ -284,7 +284,7 @@ export default function CampaignPage() {
           {campaign.ai_report && (
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>AI 리포트</CardTitle>
+                <CardTitle>AI Report</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="prose max-w-none">
@@ -297,7 +297,7 @@ export default function CampaignPage() {
           {campaign.status === "completed" && (
             <div className="flex justify-end">
               <Button onClick={() => router.push(`/review/${campaign.id}`)} size="lg">
-                리뷰 작성하기
+                Write Review
               </Button>
             </div>
           )}

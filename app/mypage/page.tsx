@@ -32,7 +32,7 @@ export default function MyPage() {
 
       setUser(user)
 
-      // 인플루언서 정보 가져오기
+      // Fetch influencer information
       const { data: influencerData } = await supabase
         .from("influencers")
         .select("*")
@@ -41,7 +41,7 @@ export default function MyPage() {
 
       setInfluencer(influencerData)
 
-      // 제안 수신함 가져오기
+      // Fetch proposal inbox
       const { data: proposalsData } = await supabase
         .from("proposals")
         .select("*, brands:brand_id(*)")
@@ -50,7 +50,7 @@ export default function MyPage() {
 
       setProposals(proposalsData || [])
 
-      // 진행 캠페인 가져오기
+      // Fetch ongoing campaigns
       const { data: campaignsData } = await supabase
         .from("campaign_history")
         .select("*")
@@ -74,7 +74,7 @@ export default function MyPage() {
       return
     }
 
-    // 제안 승인 시 채팅방 생성
+    // Create chat room when proposal is accepted
     if (action === "accept") {
       const { data: proposal } = await supabase
         .from("proposals")
@@ -95,7 +95,7 @@ export default function MyPage() {
       }
     }
 
-    // 데이터 다시 불러오기
+    // Reload data
     const { data: proposalsData } = await supabase
       .from("proposals")
       .select("*, brands:brand_id(*)")
@@ -108,7 +108,7 @@ export default function MyPage() {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>로딩 중...</p>
+        <p>Loading...</p>
       </div>
     )
   }
@@ -117,39 +117,39 @@ export default function MyPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 container mx-auto px-6 py-8">
-        <h1 className="text-3xl font-bold mb-8">마이페이지</h1>
+        <h1 className="text-3xl font-bold mb-8">My Page</h1>
 
         <Tabs defaultValue="profile" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="profile">프로필 관리</TabsTrigger>
-            <TabsTrigger value="proposals">제안 수신함</TabsTrigger>
-            <TabsTrigger value="campaigns">진행 캠페인</TabsTrigger>
-            <TabsTrigger value="insights">인사이트</TabsTrigger>
+            <TabsTrigger value="profile">Profile Management</TabsTrigger>
+            <TabsTrigger value="proposals">Proposal Inbox</TabsTrigger>
+            <TabsTrigger value="campaigns">Ongoing Campaigns</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
 
           <TabsContent value="profile">
             <Card>
               <CardHeader>
-                <CardTitle>프로필 관리</CardTitle>
-                <CardDescription>SNS 연결 상태 및 프로필 정보를 관리하세요</CardDescription>
+                <CardTitle>Profile Management</CardTitle>
+                <CardDescription>Manage your SNS connection status and profile information</CardDescription>
               </CardHeader>
               <CardContent>
                 {influencer ? (
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm text-gray-600 mb-2">채널명</p>
+                      <p className="text-sm text-gray-600 mb-2">Channel Name</p>
                       <p className="text-lg font-semibold">
-                        {influencer.channel_name || "미설정"}
+                        {influencer.channel_name || "Not set"}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 mb-2">팔로워 수</p>
+                      <p className="text-sm text-gray-600 mb-2">Followers</p>
                       <p className="text-lg font-semibold">
                         {formatNumber(influencer.followers || 0)}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 mb-2">주요 카테고리</p>
+                      <p className="text-sm text-gray-600 mb-2">Main Categories</p>
                       <div className="flex flex-wrap gap-2">
                         {influencer.categories?.map((category: string) => (
                           <span
@@ -158,15 +158,15 @@ export default function MyPage() {
                           >
                             {category}
                           </span>
-                        )) || <p className="text-gray-500">카테고리가 없습니다</p>}
+                        )) || <p className="text-gray-500">No categories</p>}
                       </div>
                     </div>
-                    <Button>프로필 수정</Button>
+                    <Button>Edit Profile</Button>
                   </div>
                 ) : (
                   <div>
-                    <p className="text-gray-500 mb-4">인플루언서 프로필이 없습니다</p>
-                    <Button>프로필 생성하기</Button>
+                    <p className="text-gray-500 mb-4">No influencer profile found</p>
+                    <Button>Create Profile</Button>
                   </div>
                 )}
               </CardContent>
@@ -181,10 +181,10 @@ export default function MyPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <CardTitle>
-                          {proposal.campaign_name || "캠페인명 없음"}
+                          {proposal.campaign_name || "No Campaign Name"}
                         </CardTitle>
                         <CardDescription>
-                          브랜드: {proposal.brands?.company_name || "알 수 없음"}
+                          Brand: {proposal.brands?.company_name || "Unknown"}
                         </CardDescription>
                       </div>
                       <span
@@ -197,24 +197,24 @@ export default function MyPage() {
                         }`}
                       >
                         {proposal.status === "accepted"
-                          ? "승인됨"
+                          ? "Accepted"
                           : proposal.status === "rejected"
-                          ? "거절됨"
-                          : "대기중"}
+                          ? "Rejected"
+                          : "Pending"}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div>
-                        <p className="text-sm text-gray-600">예산</p>
+                        <p className="text-sm text-gray-600">Budget</p>
                         <p className="text-lg font-semibold">
-                          {proposal.budget?.toLocaleString() || 0}원
+                          ${proposal.budget?.toLocaleString() || 0}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">일정</p>
-                        <p className="text-lg font-semibold">{proposal.schedule || "미정"}</p>
+                        <p className="text-sm text-gray-600">Schedule</p>
+                        <p className="text-lg font-semibold">{proposal.schedule || "TBD"}</p>
                       </div>
                     </div>
                     {proposal.message && (
@@ -229,7 +229,7 @@ export default function MyPage() {
                           className="flex-1"
                         >
                           <CheckCircle className="w-4 h-4 mr-2" />
-                          승인하기
+                          Accept
                         </Button>
                         <Button
                           variant="destructive"
@@ -237,19 +237,19 @@ export default function MyPage() {
                           className="flex-1"
                         >
                           <XCircle className="w-4 h-4 mr-2" />
-                          거절하기
+                          Reject
                         </Button>
                       </div>
                     )}
                     {proposal.status === "accepted" && (
                       <Button
                         onClick={() => {
-                          // 채팅방으로 이동
+                          // Navigate to chat room
                           router.push(`/chat/${proposal.id}`)
                         }}
                         className="w-full"
                       >
-                        채팅하기
+                        Chat
                       </Button>
                     )}
                   </CardContent>
@@ -258,7 +258,7 @@ export default function MyPage() {
               {proposals.length === 0 && (
                 <Card>
                   <CardContent className="py-8 text-center text-gray-500">
-                    받은 제안이 없습니다
+                    No proposals received
                   </CardContent>
                 </Card>
               )}
@@ -272,7 +272,7 @@ export default function MyPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle>{campaign.brand_name || "브랜드명"}</CardTitle>
+                        <CardTitle>{campaign.brand_name || "Brand Name"}</CardTitle>
                         <CardDescription>
                           {formatDate(campaign.start_date)} - {formatDate(campaign.end_date)}
                         </CardDescription>
@@ -287,31 +287,31 @@ export default function MyPage() {
                         }`}
                       >
                         {campaign.status === "completed"
-                          ? "완료"
+                          ? "Completed"
                           : campaign.status === "ongoing"
-                          ? "진행중"
-                          : "검토중"}
+                          ? "Ongoing"
+                          : "Pending"}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-3 gap-4 mb-4">
                       <div>
-                        <p className="text-sm text-gray-600">도달수</p>
+                        <p className="text-sm text-gray-600">Reach</p>
                         <p className="text-lg font-semibold">
                           {formatNumber(campaign.reach || 0)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">참여율</p>
+                        <p className="text-sm text-gray-600">Engagement Rate</p>
                         <p className="text-lg font-semibold">
                           {campaign.engagement_rate || 0}%
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">예산</p>
+                        <p className="text-sm text-gray-600">Budget</p>
                         <p className="text-lg font-semibold">
-                          {campaign.budget?.toLocaleString() || 0}원
+                          ${campaign.budget?.toLocaleString() || 0}
                         </p>
                       </div>
                     </div>
@@ -319,7 +319,7 @@ export default function MyPage() {
                       variant="outline"
                       onClick={() => router.push(`/campaign/${campaign.id}`)}
                     >
-                      상세보기
+                      View Details
                     </Button>
                   </CardContent>
                 </Card>
@@ -327,7 +327,7 @@ export default function MyPage() {
               {campaigns.length === 0 && (
                 <Card>
                   <CardContent className="py-8 text-center text-gray-500">
-                    진행 중인 캠페인이 없습니다
+                    No ongoing campaigns
                   </CardContent>
                 </Card>
               )}
@@ -338,7 +338,7 @@ export default function MyPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>팔로워 수</CardTitle>
+                  <CardTitle>Followers</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-4">
@@ -347,14 +347,14 @@ export default function MyPage() {
                       <p className="text-3xl font-bold">
                         {formatNumber(influencer?.followers || 0)}
                       </p>
-                      <p className="text-sm text-gray-600">전체 팔로워</p>
+                      <p className="text-sm text-gray-600">Total Followers</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>평균 참여율</CardTitle>
+                  <CardTitle>Average Engagement Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-4">
@@ -363,7 +363,7 @@ export default function MyPage() {
                       <p className="text-3xl font-bold">
                         {influencer?.engagement_rate || 0}%
                       </p>
-                      <p className="text-sm text-gray-600">평균 참여율</p>
+                      <p className="text-sm text-gray-600">Average Engagement Rate</p>
                     </div>
                   </div>
                 </CardContent>

@@ -36,7 +36,7 @@ export default function AuthPage() {
 
     if (!email || !password) {
       toast({
-        title: "이메일과 비밀번호를 입력해주세요",
+        title: "Please enter email and password",
         variant: "destructive",
       })
       return
@@ -51,7 +51,7 @@ export default function AuthPage() {
 
       if (error) throw error
 
-      // 사용자 역할 확인
+      // Check user role
       const { data: userData } = await supabase
         .from("users")
         .select("role")
@@ -65,7 +65,7 @@ export default function AuthPage() {
       }
     } catch (error: any) {
       toast({
-        title: "로그인 실패",
+        title: "Login failed",
         description: error.message,
         variant: "destructive",
       })
@@ -79,7 +79,7 @@ export default function AuthPage() {
 
     if (!email || !password) {
       toast({
-        title: "이메일과 비밀번호를 입력해주세요",
+        title: "Please enter email and password",
         variant: "destructive",
       })
       return
@@ -87,7 +87,7 @@ export default function AuthPage() {
 
     if (role === "influencer" && (!name || !channel)) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -95,7 +95,7 @@ export default function AuthPage() {
 
     if (role === "brand" && (!companyName || !contactPerson)) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -110,9 +110,9 @@ export default function AuthPage() {
 
       if (authError) throw authError
 
-      if (!authData.user) throw new Error("사용자 생성 실패")
+      if (!authData.user) throw new Error("User creation failed")
 
-      // users 테이블에 사용자 정보 저장
+      // Save user information to users table
       const { error: userError } = await supabase.from("users").insert({
         id: authData.user.id,
         email: email,
@@ -121,7 +121,7 @@ export default function AuthPage() {
 
       if (userError) throw userError
 
-      // 역할별 추가 정보 저장
+      // Save additional information by role
       if (role === "influencer") {
         const { error: influencerError } = await supabase.from("influencers").insert({
           user_id: authData.user.id,
@@ -143,14 +143,14 @@ export default function AuthPage() {
       }
 
       toast({
-        title: "회원가입이 완료되었습니다 ✅",
-        description: "로그인해주세요",
+        title: "Sign up completed ✅",
+        description: "Please log in",
       })
 
       setIsLogin(true)
     } catch (error: any) {
       toast({
-        title: "회원가입 실패",
+        title: "Sign up failed",
         description: error.message,
         variant: "destructive",
       })
@@ -176,7 +176,7 @@ export default function AuthPage() {
                       : "text-primary hover:bg-primary/5"
                   }`}
                 >
-                  로그인
+                  Login
                 </Button>
                 <Button
                   variant={authMode === "signup" ? "default" : "ghost"}
@@ -187,16 +187,16 @@ export default function AuthPage() {
                       : "text-primary hover:bg-primary/5"
                   }`}
                 >
-                  회원가입
+                  Sign Up
                 </Button>
               </div>
               <CardTitle className="text-3xl text-center text-gray-900">
-                {authMode === "login" ? "로그인" : "회원가입"}
+                {authMode === "login" ? "Login" : "Sign Up"}
               </CardTitle>
               <CardDescription className="text-center text-primary/80">
                 {authMode === "login"
-                  ? "계정에 로그인하세요"
-                  : "새 계정을 만들어 시작하세요"}
+                  ? "Sign in to your account"
+                  : "Create a new account to get started"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -205,11 +205,11 @@ export default function AuthPage() {
                   <TabsList className="grid w-full grid-cols-2 mb-6">
                     <TabsTrigger value="influencer">
                       <Users className="w-4 h-4 mr-2" />
-                      인플루언서
+                      Influencer
                     </TabsTrigger>
                     <TabsTrigger value="brand">
                       <Building2 className="w-4 h-4 mr-2" />
-                      브랜드
+                      Brand
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -218,7 +218,7 @@ export default function AuthPage() {
               {authMode === "login" ? (
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div>
-                    <Label htmlFor="login-email" className="text-gray-900">이메일</Label>
+                    <Label htmlFor="login-email" className="text-gray-900">Email</Label>
                     <Input
                       id="login-email"
                       type="email"
@@ -229,24 +229,24 @@ export default function AuthPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="login-password" className="text-gray-900">비밀번호</Label>
+                    <Label htmlFor="login-password" className="text-gray-900">Password</Label>
                     <Input
                       id="login-password"
                       type="password"
-                      placeholder="비밀번호"
+                      placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                   </div>
                   <Button type="submit" disabled={loading} className="w-full bg-primary text-white hover:bg-primary/90" size="lg">
-                    {loading ? "로그인 중..." : "로그인"}
+                    {loading ? "Logging in..." : "Login"}
                   </Button>
                 </form>
               ) : (
                 <form onSubmit={handleSignup} className="space-y-4">
                   <div>
-                    <Label htmlFor="signup-email" className="text-gray-900">이메일 *</Label>
+                    <Label htmlFor="signup-email" className="text-gray-900">Email *</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -257,11 +257,11 @@ export default function AuthPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="signup-password" className="text-gray-900">비밀번호 *</Label>
+                    <Label htmlFor="signup-password" className="text-gray-900">Password *</Label>
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="비밀번호"
+                      placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -271,40 +271,40 @@ export default function AuthPage() {
                   {role === "influencer" ? (
                     <>
                       <div>
-                        <Label htmlFor="name" className="text-gray-900">이름 *</Label>
+                        <Label htmlFor="name" className="text-gray-900">Name *</Label>
                         <Input
                           id="name"
-                          placeholder="홍길동"
+                          placeholder="John Doe"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="channel" className="text-gray-900">채널 *</Label>
+                        <Label htmlFor="channel" className="text-gray-900">Channel *</Label>
                         <Input
                           id="channel"
-                          placeholder="채널명"
+                          placeholder="Channel Name"
                           value={channel}
                           onChange={(e) => setChannel(e.target.value)}
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="followers" className="text-gray-900">팔로워 수</Label>
+                        <Label htmlFor="followers" className="text-gray-900">Followers</Label>
                         <Input
                           id="followers"
                           type="number"
-                          placeholder="예: 100000"
+                          placeholder="e.g., 100000"
                           value={followers}
                           onChange={(e) => setFollowers(e.target.value)}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="categories" className="text-gray-900">주요 카테고리 (쉼표로 구분)</Label>
+                        <Label htmlFor="categories" className="text-gray-900">Main Categories (comma-separated)</Label>
                         <Input
                           id="categories"
-                          placeholder="예: 뷰티, 맛집, 여행"
+                          placeholder="e.g., beauty, food, travel"
                           value={categories}
                           onChange={(e) => setCategories(e.target.value)}
                         />
@@ -313,27 +313,27 @@ export default function AuthPage() {
                   ) : (
                     <>
                       <div>
-                        <Label htmlFor="company-name" className="text-gray-900">회사명 *</Label>
+                        <Label htmlFor="company-name" className="text-gray-900">Company Name *</Label>
                         <Input
                           id="company-name"
-                          placeholder="회사명"
+                          placeholder="Company Name"
                           value={companyName}
                           onChange={(e) => setCompanyName(e.target.value)}
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="contact-person" className="text-gray-900">담당자 *</Label>
+                        <Label htmlFor="contact-person" className="text-gray-900">Contact Person *</Label>
                         <Input
                           id="contact-person"
-                          placeholder="홍길동"
+                          placeholder="John Doe"
                           value={contactPerson}
                           onChange={(e) => setContactPerson(e.target.value)}
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="website" className="text-gray-900">웹사이트</Label>
+                        <Label htmlFor="website" className="text-gray-900">Website</Label>
                         <Input
                           id="website"
                           type="url"
@@ -346,7 +346,7 @@ export default function AuthPage() {
                   )}
 
                   <Button type="submit" disabled={loading} className="w-full bg-primary text-white hover:bg-primary/90" size="lg">
-                    {loading ? "가입 중..." : "회원가입"}
+                    {loading ? "Signing up..." : "Sign Up"}
                   </Button>
                 </form>
               )}

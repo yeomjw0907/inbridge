@@ -16,11 +16,11 @@ export async function generateInfluencerRecommendations(productDescription: stri
     messages: [
       {
         role: "system",
-        content: "당신은 인플루언서 마케팅 전문가입니다. 브랜드가 홍보하고 싶은 제품에 어울리는 인플루언서를 추천해주세요.",
+        content: "You are an influencer marketing expert. Recommend influencers that match the product the brand wants to promote.",
       },
       {
         role: "user",
-        content: `다음 제품에 어울리는 인플루언서를 추천해주세요: ${productDescription}`,
+        content: `Please recommend influencers that match the following product: ${productDescription}`,
       },
     ],
     temperature: 0.7,
@@ -45,11 +45,11 @@ export async function generateContract(campaignDetails: {
     messages: [
       {
         role: "system",
-        content: "당신은 법률 전문가입니다. 인플루언서 마케팅 계약서를 작성해주세요.",
+        content: "You are a legal expert. Please draft an influencer marketing contract.",
       },
       {
         role: "user",
-        content: `브랜드: ${campaignDetails.brandName}, 인플루언서: ${campaignDetails.influencerName}, 예산: ${campaignDetails.budget}원, 기간: ${campaignDetails.duration}, 제공물: ${campaignDetails.deliverables.join(', ')}`,
+        content: `Brand: ${campaignDetails.brandName}, Influencer: ${campaignDetails.influencerName}, Budget: $${campaignDetails.budget}, Duration: ${campaignDetails.duration}, Deliverables: ${campaignDetails.deliverables.join(', ')}`,
       },
     ],
     temperature: 0.3,
@@ -72,11 +72,11 @@ export async function generateCampaignReport(campaignData: {
     messages: [
       {
         role: "system",
-        content: "당신은 마케팅 분석가입니다. 캠페인 성과를 한 문단으로 요약해주세요.",
+        content: "You are a marketing analyst. Please summarize the campaign performance in one paragraph.",
       },
       {
         role: "user",
-        content: `도달수: ${campaignData.reach}, 참여율: ${campaignData.engagement}%, 피드백: ${campaignData.feedback}`,
+        content: `Reach: ${campaignData.reach}, Engagement Rate: ${campaignData.engagement}%, Feedback: ${campaignData.feedback}`,
       },
     ],
     temperature: 0.5,
@@ -99,25 +99,25 @@ export async function generateInfluencerInsight(influencerData: {
     throw new Error('OpenAI API key is not configured. Please set OPENAI_API_KEY in your .env.local file.')
   }
   
-  const prompt = `이 인플루언서의 활동 데이터를 분석하여 한 문단으로 요약해주세요.
+  const prompt = `Please analyze this influencer's activity data and summarize it in one paragraph.
 
-인플루언서명: ${influencerData.name}
-팔로워 수: ${influencerData.followers.toLocaleString()}명
-주요 카테고리: ${influencerData.category.join(', ')}
-평균 참여율: ${influencerData.engagement_rate}%
-성장률: ${influencerData.growth_rate || 'N/A'}%
-활동 플랫폼: ${influencerData.platforms.join(', ')}
-누적 거래 수: ${influencerData.total_deals || 0}건
-평균 평점: ${influencerData.rating || 'N/A'}/5.0
+Influencer Name: ${influencerData.name}
+Followers: ${influencerData.followers.toLocaleString()}
+Main Categories: ${influencerData.category.join(', ')}
+Average Engagement Rate: ${influencerData.engagement_rate}%
+Growth Rate: ${influencerData.growth_rate || 'N/A'}%
+Active Platforms: ${influencerData.platforms.join(', ')}
+Total Deals: ${influencerData.total_deals || 0}
+Average Rating: ${influencerData.rating || 'N/A'}/5.0
 
-이 데이터를 바탕으로 인플루언서의 강점, 타겟 오디언스, 협업 적합성 등을 간결하게 요약해주세요.`
+Based on this data, please provide a concise summary of the influencer's strengths, target audience, and collaboration suitability.`
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
-        content: "당신은 인플루언서 마케팅 전문 분석가입니다. 인플루언서의 데이터를 분석하여 브랜드가 이해하기 쉽게 한 문단으로 요약해주세요.",
+        content: "You are an expert influencer marketing analyst. Analyze the influencer's data and provide a one-paragraph summary that is easy for brands to understand.",
       },
       {
         role: "user",

@@ -55,36 +55,36 @@ export default function AdminPage() {
       <Header />
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">관리자 페이지</h1>
+          <h1 className="text-3xl font-bold mb-8">Admin Page</h1>
 
           <Tabs defaultValue="users" className="space-y-6">
             <TabsList>
               <TabsTrigger value="users">
                 <Users className="w-4 h-4 mr-2" />
-                회원 관리
+                User Management
               </TabsTrigger>
               <TabsTrigger value="influencers">
                 <Users className="w-4 h-4 mr-2" />
-                인플루언서 관리
+                Influencer Management
               </TabsTrigger>
               <TabsTrigger value="campaigns">
                 <FileText className="w-4 h-4 mr-2" />
-                캠페인 관리
+                Campaign Management
               </TabsTrigger>
               <TabsTrigger value="contacts">
                 <Mail className="w-4 h-4 mr-2" />
-                문의
+                Inquiries
               </TabsTrigger>
               <TabsTrigger value="blogs">
                 <FileText className="w-4 h-4 mr-2" />
-                블로그 관리
+                Blog Management
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="users">
               <Card>
                 <CardHeader>
-                  <CardTitle>회원 관리</CardTitle>
+                  <CardTitle>User Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
@@ -92,10 +92,10 @@ export default function AdminPage() {
                       <thead>
                         <tr className="border-b">
                           <th className="text-left p-2">ID</th>
-                          <th className="text-left p-2">이메일</th>
-                          <th className="text-left p-2">역할</th>
-                          <th className="text-left p-2">가입일</th>
-                          <th className="text-left p-2">작업</th>
+                          <th className="text-left p-2">Email</th>
+                          <th className="text-left p-2">Role</th>
+                          <th className="text-left p-2">Join Date</th>
+                          <th className="text-left p-2">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -107,7 +107,7 @@ export default function AdminPage() {
                             <td className="p-2">{formatDate(user.created_at)}</td>
                             <td className="p-2">
                               <Button variant="outline" size="sm">
-                                수정
+                                Edit
                               </Button>
                             </td>
                           </tr>
@@ -122,18 +122,18 @@ export default function AdminPage() {
             <TabsContent value="influencers">
               <Card>
                 <CardHeader>
-                  <CardTitle>인플루언서 관리</CardTitle>
+                  <CardTitle>Influencer Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
                         <tr className="border-b">
-                          <th className="text-left p-2">채널명</th>
-                          <th className="text-left p-2">팔로워</th>
-                          <th className="text-left p-2">참여율</th>
-                          <th className="text-left p-2">카테고리</th>
-                          <th className="text-left p-2">작업</th>
+                          <th className="text-left p-2">Channel Name</th>
+                          <th className="text-left p-2">Followers</th>
+                          <th className="text-left p-2">Engagement Rate</th>
+                          <th className="text-left p-2">Categories</th>
+                          <th className="text-left p-2">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -147,7 +147,7 @@ export default function AdminPage() {
                             </td>
                             <td className="p-2">
                               <Button variant="outline" size="sm">
-                                수정
+                                Edit
                               </Button>
                             </td>
                           </tr>
@@ -162,7 +162,7 @@ export default function AdminPage() {
             <TabsContent value="campaigns">
               <Card>
                 <CardHeader>
-                  <CardTitle>캠페인 관리</CardTitle>
+                  <CardTitle>Campaign Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -186,10 +186,10 @@ export default function AdminPage() {
                               }`}
                             >
                               {campaign.status === "completed"
-                                ? "완료"
+                                ? "Completed"
                                 : campaign.status === "ongoing"
-                                ? "진행중"
-                                : "검토중"}
+                                ? "Ongoing"
+                                : "Pending"}
                             </span>
                           </div>
                         </CardContent>
@@ -203,7 +203,7 @@ export default function AdminPage() {
             <TabsContent value="contacts">
               <Card>
                 <CardHeader>
-                  <CardTitle>문의 관리</CardTitle>
+                  <CardTitle>Inquiry Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -231,7 +231,7 @@ export default function AdminPage() {
             <TabsContent value="blogs">
               <Card>
                 <CardHeader>
-                  <CardTitle>블로그 관리</CardTitle>
+                  <CardTitle>Blog Management</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -247,10 +247,10 @@ export default function AdminPage() {
                             </div>
                             <div className="flex gap-2">
                               <Button variant="outline" size="sm">
-                                수정
+                                Edit
                               </Button>
                               <Button variant="destructive" size="sm">
-                                삭제
+                                Delete
                               </Button>
                             </div>
                           </div>

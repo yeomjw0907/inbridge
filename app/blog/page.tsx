@@ -21,53 +21,53 @@ export default function BlogPage() {
         .select("*")
         .order("created_at", { ascending: false })
 
-      // 더미 데이터 (Supabase에 데이터가 없을 때)
+      // Dummy data (when Supabase has no data)
       const dummyPosts = [
         {
           id: "1",
-          title: "2024년 인플루언서 마케팅 트렌드",
-          summary: "올해 주목해야 할 인플루언서 마케팅 트렌드와 전략을 알아봅니다.",
-          content: "<p>2024년 인플루언서 마케팅은 더욱 개인화되고 진정성 있는 콘텐츠를 중심으로 발전하고 있습니다. 단순한 제품 홍보를 넘어 브랜드와 인플루언서 간의 진정한 파트너십이 중요해지고 있습니다.</p>",
+          title: "2024 Influencer Marketing Trends",
+          summary: "Learn about the influencer marketing trends and strategies to watch this year.",
+          content: "<p>Influencer marketing in 2024 is evolving around more personalized and authentic content. Beyond simple product promotion, genuine partnerships between brands and influencers are becoming increasingly important.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
           id: "2",
-          title: "효과적인 인플루언서 캠페인 기획하기",
-          summary: "성공적인 인플루언서 캠페인을 위한 기획 단계별 가이드입니다.",
-          content: "<p>인플루언서 캠페인을 성공적으로 진행하기 위해서는 철저한 기획이 필수입니다. 목표 설정, 타겟 오디언스 분석, 적합한 인플루언서 선정까지 단계별로 알아봅니다.</p>",
+          title: "Planning Effective Influencer Campaigns",
+          summary: "A step-by-step guide for planning successful influencer campaigns.",
+          content: "<p>Thorough planning is essential for successfully running influencer campaigns. We'll explore goal setting, target audience analysis, and selecting the right influencers step by step.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
           id: "3",
-          title: "인플루언서 ROI 측정 방법",
-          summary: "인플루언서 마케팅의 투자 대비 효과를 정확히 측정하는 방법을 소개합니다.",
-          content: "<p>인플루언서 마케팅의 ROI를 측정하는 것은 쉽지 않습니다. 도달수, 참여율, 전환율 등 다양한 지표를 종합적으로 분석하는 방법을 알아봅니다.</p>",
+          title: "How to Measure Influencer ROI",
+          summary: "Learn how to accurately measure the return on investment for influencer marketing.",
+          content: "<p>Measuring ROI for influencer marketing is not easy. We'll explore methods for comprehensive analysis of various metrics including reach, engagement rate, and conversion rate.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
           id: "4",
-          title: "소셜미디어 플랫폼별 인플루언서 전략",
-          summary: "Instagram, YouTube, TikTok 등 플랫폼별 특화된 인플루언서 마케팅 전략을 다룹니다.",
-          content: "<p>각 소셜미디어 플랫폼마다 고유한 특성과 사용자 행동 패턴이 있습니다. 플랫폼별로 최적화된 인플루언서 마케팅 전략을 수립하는 것이 중요합니다.</p>",
+          title: "Platform-Specific Influencer Strategies",
+          summary: "Learn about platform-specific influencer marketing strategies for Instagram, YouTube, TikTok, and more.",
+          content: "<p>Each social media platform has unique characteristics and user behavior patterns. It's important to establish optimized influencer marketing strategies for each platform.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
           id: "5",
-          title: "마이크로 인플루언서의 힘",
-          summary: "팔로워 수보다 참여율이 중요한 시대, 마이크로 인플루언서의 가치를 알아봅니다.",
-          content: "<p>마이크로 인플루언서는 적은 팔로워 수에도 불구하고 높은 참여율과 신뢰도를 보여줍니다. 비용 대비 효과가 뛰어난 마이크로 인플루언서 마케팅의 장점을 살펴봅니다.</p>",
+          title: "The Power of Micro-Influencers",
+          summary: "In an era where engagement rate matters more than follower count, learn about the value of micro-influencers.",
+          content: "<p>Micro-influencers show high engagement rates and trustworthiness despite having fewer followers. We'll explore the advantages of cost-effective micro-influencer marketing.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000).toISOString(),
         },
         {
           id: "6",
-          title: "인플루언서와의 협업 계약 가이드",
-          summary: "인플루언서와의 협업 시 체결해야 할 계약서 항목과 주의사항을 정리했습니다.",
-          content: "<p>인플루언서와의 협업 계약 시 명확한 계약 조건과 지적재산권, 콘텐츠 사용 권한 등을 명시하는 것이 중요합니다. 계약서 작성 시 주의해야 할 사항들을 알아봅니다.</p>",
+          title: "Influencer Collaboration Contract Guide",
+          summary: "A guide to contract items and precautions when collaborating with influencers.",
+          content: "<p>When collaborating with influencers, it's important to clearly specify contract terms, intellectual property rights, and content usage permissions. Learn about important considerations when drafting contracts.</p>",
           author_id: "admin",
           created_at: new Date(Date.now() - 42 * 24 * 60 * 60 * 1000).toISOString(),
         },
@@ -85,9 +85,9 @@ export default function BlogPage() {
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">블로그</h1>
+            <h1 className="text-4xl font-bold mb-4">Blog</h1>
             <p className="text-gray-600">
-              인플루언서 마케팅에 대한 최신 정보와 인사이트를 확인하세요
+              Check out the latest information and insights on influencer marketing
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export default function BlogPage() {
           {posts.length === 0 && (
             <Card>
               <CardContent className="py-16 text-center text-gray-500">
-                아직 게시글이 없습니다
+                No posts yet
               </CardContent>
             </Card>
           )}

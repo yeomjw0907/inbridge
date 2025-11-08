@@ -34,7 +34,7 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
   const handleSubmit = async () => {
     if (!campaignName || !budget || !schedule) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -48,7 +48,7 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
 
       if (!user) {
         toast({
-          title: "로그인이 필요합니다",
+          title: "Login required",
           variant: "destructive",
         })
         return
@@ -67,8 +67,8 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
       if (error) throw error
 
       toast({
-        title: "제안이 전송되었습니다 ✅",
-        description: "인플루언서의 응답을 기다려주세요",
+        title: "Proposal sent successfully ✅",
+        description: "Please wait for the influencer's response",
       })
 
       setCampaignName("")
@@ -78,7 +78,7 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
       onOpenChange(false)
     } catch (error: any) {
       toast({
-        title: "오류가 발생했습니다",
+        title: "An error occurred",
         description: error.message,
         variant: "destructive",
       })
@@ -91,45 +91,45 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>제안 보내기</DialogTitle>
+          <DialogTitle>Send Proposal</DialogTitle>
           <DialogDescription>
-            인플루언서에게 캠페인 제안을 보내세요
+            Send a campaign proposal to the influencer
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="campaign-name">캠페인명 *</Label>
+            <Label htmlFor="campaign-name">Campaign Name *</Label>
             <Input
               id="campaign-name"
-              placeholder="예: 봄 신상품 홍보 캠페인"
+              placeholder="e.g., Spring New Product Launch Campaign"
               value={campaignName}
               onChange={(e) => setCampaignName(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="budget">예산 *</Label>
+            <Label htmlFor="budget">Budget *</Label>
             <Input
               id="budget"
               type="number"
-              placeholder="예: 1000000"
+              placeholder="e.g., 1000000"
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="schedule">일정 *</Label>
+            <Label htmlFor="schedule">Schedule *</Label>
             <Input
               id="schedule"
-              placeholder="예: 2024-03-01 ~ 2024-03-31"
+              placeholder="e.g., 2024-03-01 ~ 2024-03-31"
               value={schedule}
               onChange={(e) => setSchedule(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="message">메시지</Label>
+            <Label htmlFor="message">Message</Label>
             <Textarea
               id="message"
-              placeholder="인플루언서에게 전달할 메시지를 입력하세요"
+              placeholder="Enter a message to send to the influencer"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={4}
@@ -138,10 +138,10 @@ export function ProposalModal({ open, onOpenChange, influencerId }: ProposalModa
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            취소
+            Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={loading}>
-            {loading ? "전송 중..." : "제안 보내기"}
+            {loading ? "Sending..." : "Send Proposal"}
           </Button>
         </DialogFooter>
       </DialogContent>

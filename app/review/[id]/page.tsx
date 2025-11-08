@@ -42,7 +42,7 @@ export default function ReviewPage() {
   const handleSubmit = async () => {
     if (!communication || !performance || !overall) {
       toast({
-        title: "모든 항목을 평가해주세요",
+        title: "Please rate all items",
         variant: "destructive",
       })
       return
@@ -56,7 +56,7 @@ export default function ReviewPage() {
 
       if (!user) {
         toast({
-          title: "로그인이 필요합니다",
+          title: "Login required",
           variant: "destructive",
         })
         return
@@ -74,7 +74,7 @@ export default function ReviewPage() {
       if (error) throw error
 
       toast({
-        title: "리뷰가 작성되었습니다 ✅",
+        title: "Review submitted ✅",
       })
 
       setTimeout(() => {
@@ -82,7 +82,7 @@ export default function ReviewPage() {
       }, 2000)
     } catch (error: any) {
       toast({
-        title: "오류가 발생했습니다",
+        title: "An error occurred",
         description: error.message,
         variant: "destructive",
       })
@@ -123,35 +123,35 @@ export default function ReviewPage() {
       <Header />
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">리뷰 작성</h1>
+          <h1 className="text-3xl font-bold mb-8">Write Review</h1>
 
           <Card>
             <CardHeader>
-              <CardTitle>{campaign?.brand_name || "캠페인"} 리뷰</CardTitle>
+              <CardTitle>{campaign?.brand_name || "Campaign"} Review</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <Label className="mb-2 block">커뮤니케이션</Label>
+                <Label className="mb-2 block">Communication</Label>
                 <StarRating value={communication} onChange={setCommunication} />
               </div>
 
               <div>
-                <Label className="mb-2 block">성과</Label>
+                <Label className="mb-2 block">Performance</Label>
                 <StarRating value={performance} onChange={setPerformance} />
               </div>
 
               <div>
-                <Label className="mb-2 block">전체 만족도</Label>
+                <Label className="mb-2 block">Overall Satisfaction</Label>
                 <StarRating value={overall} onChange={setOverall} />
               </div>
 
               <div>
                 <Label htmlFor="comment" className="mb-2 block">
-                  코멘트
+                  Comment
                 </Label>
                 <Textarea
                   id="comment"
-                  placeholder="리뷰를 작성해주세요"
+                  placeholder="Write your review"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   rows={6}
@@ -159,7 +159,7 @@ export default function ReviewPage() {
               </div>
 
               <Button onClick={handleSubmit} disabled={loading} className="w-full" size="lg">
-                {loading ? "저장 중..." : "리뷰 작성하기"}
+                {loading ? "Saving..." : "Submit Review"}
               </Button>
             </CardContent>
           </Card>

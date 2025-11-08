@@ -22,7 +22,7 @@ export default function SignupPage() {
   const supabase = createClient()
   const { toast } = useToast()
 
-  // 인플루언서 폼 상태
+  // Influencer form state
   const [infName, setInfName] = useState("")
   const [infEmail, setInfEmail] = useState("")
   const [infPassword, setInfPassword] = useState("")
@@ -36,7 +36,7 @@ export default function SignupPage() {
   const [infPricePerPost, setInfPricePerPost] = useState("")
   const [infBio, setInfBio] = useState("")
 
-  // 브랜드 폼 상태
+  // Brand form state
   const [brandManagerName, setBrandManagerName] = useState("")
   const [brandEmail, setBrandEmail] = useState("")
   const [brandPassword, setBrandPassword] = useState("")
@@ -104,10 +104,10 @@ export default function SignupPage() {
   const signupInfluencer = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // 필수 필드 검증
+    // Validate required fields
     if (!infName || !infEmail || !infPassword || !infChannelUrl || !infFollowers) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -115,7 +115,7 @@ export default function SignupPage() {
 
     if (infPlatforms.length === 0) {
       toast({
-        title: "주요 플랫폼을 선택해주세요",
+        title: "Please select main platforms",
         variant: "destructive",
       })
       return
@@ -123,7 +123,7 @@ export default function SignupPage() {
 
     if (infCategory.length === 0) {
       toast({
-        title: "주요 카테고리를 선택해주세요",
+        title: "Please select main categories",
         variant: "destructive",
       })
       return
@@ -131,7 +131,7 @@ export default function SignupPage() {
 
     if (infCollabType.length === 0) {
       toast({
-        title: "선호 협업 형태를 선택해주세요",
+        title: "Please select preferred collaboration types",
         variant: "destructive",
       })
       return
@@ -139,22 +139,22 @@ export default function SignupPage() {
 
     setLoading(true)
     try {
-      // 1. Supabase Auth에 사용자 생성
+      // 1. Create user in Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: infEmail,
         password: infPassword,
       })
 
       if (authError) throw authError
-      if (!authData.user) throw new Error("사용자 생성 실패")
+      if (!authData.user) throw new Error("User creation failed")
 
-      // 2. 프로필 이미지 업로드
+      // 2. Upload profile image
       let profileImageUrl: string | null = null
       if (infProfileImage) {
         profileImageUrl = await uploadProfileImage(infProfileImage)
       }
 
-      // 3. profiles 테이블에 데이터 저장 (없으면 users + influencers 테이블 사용)
+      // 3. Save data to profiles table (or use users + influencers tables if profiles doesn't exist)
       try {
         const { error: profileError } = await supabase.from("profiles").insert({
           id: authData.user.id,
@@ -174,7 +174,7 @@ export default function SignupPage() {
 
         if (profileError) throw profileError
       } catch (profileError: any) {
-        // profiles 테이블이 없으면 기존 테이블 구조 사용
+        // Use existing table structure if profiles table doesn't exist
         const { error: userError } = await supabase.from("users").insert({
           id: authData.user.id,
           email: infEmail,
@@ -195,15 +195,15 @@ export default function SignupPage() {
       }
 
       toast({
-        title: "회원가입이 완료되었습니다 ✅",
-        description: "인플루언서 대시보드로 이동합니다",
+        title: "Sign up completed ✅",
+        description: "Redirecting to influencer dashboard",
       })
 
-      // 4. 리다이렉트
+      // 4. Redirect
       router.push("/mypage")
     } catch (error: any) {
       toast({
-        title: "회원가입 실패",
+        title: "Sign up failed",
         description: error.message,
         variant: "destructive",
       })
@@ -215,10 +215,10 @@ export default function SignupPage() {
   const signupBrand = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // 필수 필드 검증
+    // Validate required fields
     if (!brandManagerName || !brandEmail || !brandPassword || !brandCompanyName || !brandPhone || !brandIndustry) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -226,16 +226,16 @@ export default function SignupPage() {
 
     setLoading(true)
     try {
-      // 1. Supabase Auth에 사용자 생성
+      // 1. Create user in Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: brandEmail,
         password: brandPassword,
       })
 
       if (authError) throw authError
-      if (!authData.user) throw new Error("사용자 생성 실패")
+      if (!authData.user) throw new Error("User creation failed")
 
-      // 2. profiles 테이블에 데이터 저장 (없으면 users + brands 테이블 사용)
+      // 2. Save data to profiles table (or use users + brands tables if profiles doesn't exist)
       try {
         const { error: profileError } = await supabase.from("profiles").insert({
           id: authData.user.id,
@@ -253,7 +253,7 @@ export default function SignupPage() {
 
         if (profileError) throw profileError
       } catch (profileError: any) {
-        // profiles 테이블이 없으면 기존 테이블 구조 사용
+        // Use existing table structure if profiles table doesn't exist
         const { error: userError } = await supabase.from("users").insert({
           id: authData.user.id,
           email: brandEmail,
@@ -273,15 +273,15 @@ export default function SignupPage() {
       }
 
       toast({
-        title: "회원가입이 완료되었습니다 ✅",
-        description: "브랜드 대시보드로 이동합니다",
+        title: "Sign up completed ✅",
+        description: "Redirecting to brand dashboard",
       })
 
-      // 3. 리다이렉트
+      // 3. Redirect
       router.push("/brand")
     } catch (error: any) {
       toast({
-        title: "회원가입 실패",
+        title: "Sign up failed",
         description: error.message,
         variant: "destructive",
       })
@@ -307,7 +307,7 @@ export default function SignupPage() {
                   }`}
                 >
                   <Users className="w-4 h-4 inline mr-2" />
-                  인플루언서
+                  Influencer
                 </button>
                 <button
                   onClick={() => setRole("brand")}
@@ -318,29 +318,29 @@ export default function SignupPage() {
                   }`}
                 >
                   <Building2 className="w-4 h-4 inline mr-2" />
-                  브랜드
+                  Brand
                 </button>
               </div>
               <CardTitle className="text-2xl font-bold text-center text-gray-900">
-                {role === "influencer" ? "인플루언서 회원가입" : "브랜드 회원가입"}
+                {role === "influencer" ? "Influencer Sign Up" : "Brand Sign Up"}
               </CardTitle>
               <CardDescription className="text-center text-primary/80">
                 {role === "influencer"
-                  ? "새 계정을 만들어 시작하세요"
-                  : "브랜드 계정을 만들어 시작하세요"}
+                  ? "Create a new account to get started"
+                  : "Create a brand account to get started"}
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
               {role === "influencer" ? (
                 <form onSubmit={signupInfluencer} className="space-y-4">
-                  {/* 이름 */}
+                  {/* Name */}
                   <div>
                     <Label htmlFor="inf-name" className="text-gray-900">
-                      이름 <span className="text-primary">*</span>
+                      Name <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="inf-name"
-                      placeholder="활동명 또는 실명"
+                      placeholder="Stage name or real name"
                       value={infName}
                       onChange={(e) => setInfName(e.target.value)}
                       required
@@ -348,10 +348,10 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 이메일 */}
+                  {/* Email */}
                   <div>
                     <Label htmlFor="inf-email" className="text-gray-900">
-                      이메일 <span className="text-primary">*</span>
+                      Email <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="inf-email"
@@ -364,10 +364,10 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 비밀번호 */}
+                  {/* Password */}
                   <div>
                     <Label htmlFor="inf-password" className="text-gray-900">
-                      비밀번호 <span className="text-primary">*</span>
+                      Password <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="inf-password"
@@ -380,9 +380,9 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 프로필 이미지 */}
+                  {/* Profile Image */}
                   <div>
-                    <Label htmlFor="inf-image" className="text-gray-900">프로필 이미지</Label>
+                    <Label htmlFor="inf-image" className="text-gray-900">Profile Image</Label>
                     <Input
                       id="inf-image"
                       type="file"
@@ -392,31 +392,31 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 활동 지역 */}
+                  {/* Location */}
                   <div>
-                    <Label htmlFor="inf-location" className="text-gray-900">활동 지역</Label>
+                    <Label htmlFor="inf-location" className="text-gray-900">Location</Label>
                     <Select value={infLocation} onValueChange={setInfLocation}>
                       <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="서울 / 부산 / 해외 등" />
+                        <SelectValue placeholder="Seoul / Busan / Overseas etc." />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="서울">서울</SelectItem>
-                        <SelectItem value="부산">부산</SelectItem>
-                        <SelectItem value="인천">인천</SelectItem>
-                        <SelectItem value="대구">대구</SelectItem>
-                        <SelectItem value="대전">대전</SelectItem>
-                        <SelectItem value="광주">광주</SelectItem>
-                        <SelectItem value="울산">울산</SelectItem>
-                        <SelectItem value="기타">기타</SelectItem>
-                        <SelectItem value="해외">해외</SelectItem>
+                        <SelectItem value="Seoul">Seoul</SelectItem>
+                        <SelectItem value="Busan">Busan</SelectItem>
+                        <SelectItem value="Incheon">Incheon</SelectItem>
+                        <SelectItem value="Daegu">Daegu</SelectItem>
+                        <SelectItem value="Daejeon">Daejeon</SelectItem>
+                        <SelectItem value="Gwangju">Gwangju</SelectItem>
+                        <SelectItem value="Ulsan">Ulsan</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                        <SelectItem value="Overseas">Overseas</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {/* 주요 플랫폼 */}
+                  {/* Main Platforms */}
                   <div>
                     <Label className="text-gray-900">
-                      주요 플랫폼 <span className="text-primary">*</span>
+                      Main Platforms <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {["Instagram", "YouTube", "TikTok"].map((platform) => (
@@ -438,10 +438,10 @@ export default function SignupPage() {
                     </div>
                   </div>
 
-                  {/* 채널 URL */}
+                  {/* Channel URL */}
                   <div>
                     <Label htmlFor="inf-channel-url" className="text-gray-900">
-                      채널 URL <span className="text-primary">*</span>
+                      Channel URL <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="inf-channel-url"
@@ -454,15 +454,15 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 팔로워 수 */}
+                  {/* Followers */}
                   <div>
                     <Label htmlFor="inf-followers" className="text-gray-900">
-                      팔로워 수 <span className="text-primary">*</span>
+                      Followers <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="inf-followers"
                       type="number"
-                      placeholder="예: 12500"
+                      placeholder="e.g., 12500"
                       value={infFollowers}
                       onChange={(e) => setInfFollowers(e.target.value)}
                       required
@@ -470,13 +470,13 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 주요 카테고리 */}
+                  {/* Main Categories */}
                   <div>
                     <Label className="text-gray-900">
-                      주요 카테고리 <span className="text-primary">*</span>
+                      Main Categories <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["뷰티", "패션", "헬스", "푸드", "여행", "IT"].map((category) => (
+                      {["Beauty", "Fashion", "Health", "Food", "Travel", "IT"].map((category) => (
                         <Button
                           key={category}
                           type="button"
@@ -495,13 +495,13 @@ export default function SignupPage() {
                     </div>
                   </div>
 
-                  {/* 선호 협업 형태 */}
+                  {/* Preferred Collaboration Types */}
                   <div>
                     <Label className="text-gray-900">
-                      선호 협업 형태 <span className="text-primary">*</span>
+                      Preferred Collaboration Types <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["리뷰", "체험단", "유료 광고", "공동 캠페인"].map((type) => (
+                      {["Review", "Experience", "Paid Ad", "Joint Campaign"].map((type) => (
                         <Button
                           key={type}
                           type="button"
@@ -520,25 +520,25 @@ export default function SignupPage() {
                     </div>
                   </div>
 
-                  {/* 1회 포스팅 단가 */}
+                  {/* Price Per Post */}
                   <div>
-                    <Label htmlFor="inf-price" className="text-gray-900">1회 포스팅 단가</Label>
+                    <Label htmlFor="inf-price" className="text-gray-900">Price Per Post</Label>
                     <Input
                       id="inf-price"
                       type="number"
-                      placeholder="예: 200000"
+                      placeholder="e.g., 200000"
                       value={infPricePerPost}
                       onChange={(e) => setInfPricePerPost(e.target.value)}
                       className="mt-1"
                     />
                   </div>
 
-                  {/* 간단 소개 */}
+                  {/* Bio */}
                   <div>
-                    <Label htmlFor="inf-bio" className="text-gray-900">간단 소개</Label>
+                    <Label htmlFor="inf-bio" className="text-gray-900">Bio</Label>
                     <Textarea
                       id="inf-bio"
-                      placeholder="나를 소개해주세요"
+                      placeholder="Introduce yourself"
                       value={infBio}
                       onChange={(e) => setInfBio(e.target.value)}
                       className="mt-1"
@@ -555,23 +555,23 @@ export default function SignupPage() {
                     {loading ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        가입 중...
+                        Signing up...
                       </>
                     ) : (
-                      "가입하기"
+                      "Sign Up"
                     )}
                   </Button>
                 </form>
               ) : (
                 <form onSubmit={signupBrand} className="space-y-4">
-                  {/* 담당자 이름 */}
+                  {/* Contact Person Name */}
                   <div>
                     <Label htmlFor="brand-manager-name" className="text-gray-900">
-                      담당자 이름 <span className="text-primary">*</span>
+                      Contact Person Name <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="brand-manager-name"
-                      placeholder="홍길동"
+                      placeholder="John Doe"
                       value={brandManagerName}
                       onChange={(e) => setBrandManagerName(e.target.value)}
                       required
@@ -579,10 +579,10 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 이메일 */}
+                  {/* Email */}
                   <div>
                     <Label htmlFor="brand-email" className="text-gray-900">
-                      이메일 <span className="text-primary">*</span>
+                      Email <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="brand-email"
@@ -595,10 +595,10 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 비밀번호 */}
+                  {/* Password */}
                   <div>
                     <Label htmlFor="brand-password" className="text-gray-900">
-                      비밀번호 <span className="text-primary">*</span>
+                      Password <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="brand-password"
@@ -611,14 +611,14 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 회사명 */}
+                  {/* Company Name */}
                   <div>
                     <Label htmlFor="brand-company-name" className="text-gray-900">
-                      회사명 <span className="text-primary">*</span>
+                      Company Name <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="brand-company-name"
-                      placeholder="인브릿지 주식회사"
+                      placeholder="Inbridge Inc."
                       value={brandCompanyName}
                       onChange={(e) => setBrandCompanyName(e.target.value)}
                       required
@@ -626,9 +626,9 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 웹사이트 */}
+                  {/* Website */}
                   <div>
-                    <Label htmlFor="brand-website" className="text-gray-900">웹사이트</Label>
+                    <Label htmlFor="brand-website" className="text-gray-900">Website</Label>
                     <Input
                       id="brand-website"
                       type="url"
@@ -639,10 +639,10 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 연락처 */}
+                  {/* Phone */}
                   <div>
                     <Label htmlFor="brand-phone" className="text-gray-900">
-                      연락처 <span className="text-primary">*</span>
+                      Phone <span className="text-primary">*</span>
                     </Label>
                     <Input
                       id="brand-phone"
@@ -654,31 +654,31 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  {/* 업종 카테고리 */}
+                  {/* Industry Category */}
                   <div>
                     <Label htmlFor="brand-industry" className="text-gray-900">
-                      업종 카테고리 <span className="text-primary">*</span>
+                      Industry Category <span className="text-primary">*</span>
                     </Label>
                     <Select value={brandIndustry} onValueChange={setBrandIndustry}>
                       <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="뷰티 / 패션 / IT / 식품 / 헬스 / 기타" />
+                        <SelectValue placeholder="Beauty / Fashion / IT / Food / Health / Other" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="뷰티">뷰티</SelectItem>
-                        <SelectItem value="패션">패션</SelectItem>
+                        <SelectItem value="Beauty">Beauty</SelectItem>
+                        <SelectItem value="Fashion">Fashion</SelectItem>
                         <SelectItem value="IT">IT</SelectItem>
-                        <SelectItem value="식품">식품</SelectItem>
-                        <SelectItem value="헬스">헬스</SelectItem>
-                        <SelectItem value="기타">기타</SelectItem>
+                        <SelectItem value="Food">Food</SelectItem>
+                        <SelectItem value="Health">Health</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {/* 캠페인 목표 */}
+                  {/* Campaign Goals */}
                   <div>
-                    <Label className="text-gray-900">캠페인 목표</Label>
+                    <Label className="text-gray-900">Campaign Goals</Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["브랜드 인지도", "판매", "신규 유입"].map((goal) => (
+                      {["Brand Awareness", "Sales", "New Leads"].map((goal) => (
                         <Button
                           key={goal}
                           type="button"
@@ -697,24 +697,24 @@ export default function SignupPage() {
                     </div>
                   </div>
 
-                  {/* 홍보 예산 범위 */}
+                  {/* Marketing Budget Range */}
                   <div>
-                    <Label htmlFor="brand-budget" className="text-gray-900">홍보 예산 범위</Label>
+                    <Label htmlFor="brand-budget" className="text-gray-900">Marketing Budget Range</Label>
                     <Select value={brandBudgetRange} onValueChange={setBrandBudgetRange}>
                       <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="50만 이하 / 50–200만 / 200만 이상" />
+                        <SelectValue placeholder="Under $500K / $500K-$2M / Over $2M" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="50만 이하">50만 이하</SelectItem>
-                        <SelectItem value="50–200만">50–200만</SelectItem>
-                        <SelectItem value="200만 이상">200만 이상</SelectItem>
+                        <SelectItem value="Under $500K">Under $500K</SelectItem>
+                        <SelectItem value="$500K-$2M">$500K-$2M</SelectItem>
+                        <SelectItem value="Over $2M">Over $2M</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {/* 선호 플랫폼 */}
+                  {/* Preferred Platforms */}
                   <div>
-                    <Label className="text-gray-900">선호 플랫폼</Label>
+                    <Label className="text-gray-900">Preferred Platforms</Label>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {["Instagram", "YouTube", "TikTok"].map((platform) => (
                         <Button
@@ -744,10 +744,10 @@ export default function SignupPage() {
                     {loading ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        가입 중...
+                        Signing up...
                       </>
                     ) : (
-                      "가입하기"
+                      "Sign Up"
                     )}
                   </Button>
                 </form>

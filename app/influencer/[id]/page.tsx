@@ -76,7 +76,7 @@ export default function InfluencerDetailPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 인플루언서 데이터 가져오기
+        // Fetch influencer data
         let influencerData = null
         try {
           const { data, error } = await supabase
@@ -92,21 +92,21 @@ export default function InfluencerDetailPage() {
           console.warn("Supabase query error:", supabaseError)
         }
 
-        // 더미 데이터 (Supabase에 데이터가 없을 때)
+        // Dummy data (when Supabase has no data)
         if (!influencerData) {
           const dummyInfluencers: any = {
             "1": {
               id: "1",
-              channel_name: "뷰티크리에이터",
-              name: "뷰티크리에이터",
+              channel_name: "Beauty Creator",
+              name: "Beauty Creator",
               followers: 250000,
               engagement_rate: 4.5,
               growth_rate: 12.5,
               rating: 4.8,
-              categories: ["뷰티", "라이프스타일"],
+              categories: ["beauty", "lifestyle"],
               platforms: ["instagram", "youtube"],
               profile_image: null,
-              bio: "뷰티와 라이프스타일을 사랑하는 크리에이터입니다. 다양한 메이크업 튜토리얼과 제품 리뷰를 제공하고 있습니다.",
+              bio: "A creator who loves beauty and lifestyle. Provides various makeup tutorials and product reviews.",
               total_deals: 45,
               gender_ratio: { male: 0.35, female: 0.65 },
               age_ratio: { "20-29": 0.35, "30-39": 0.45, "40+": 0.2 },
@@ -114,16 +114,16 @@ export default function InfluencerDetailPage() {
             },
             "2": {
               id: "2",
-              channel_name: "맛집탐방러",
-              name: "맛집탐방러",
+              channel_name: "Food Explorer",
+              name: "Food Explorer",
               followers: 180000,
               engagement_rate: 5.2,
               growth_rate: 15.3,
               rating: 4.9,
-              categories: ["맛집", "여행"],
+              categories: ["food", "travel"],
               platforms: ["instagram", "tiktok"],
               profile_image: null,
-              bio: "전국 맛집을 찾아다니는 푸드 크리에이터입니다. 숨은 맛집과 인기 맛집을 소개합니다.",
+              bio: "A food creator who travels around the country to find great restaurants. Introduces hidden gems and popular spots.",
               total_deals: 32,
               gender_ratio: { male: 0.4, female: 0.6 },
               age_ratio: { "20-29": 0.4, "30-39": 0.35, "40+": 0.25 },
@@ -131,16 +131,16 @@ export default function InfluencerDetailPage() {
             },
             "3": {
               id: "3",
-              channel_name: "패션스타일리스트",
-              name: "패션스타일리스트",
+              channel_name: "Fashion Stylist",
+              name: "Fashion Stylist",
               followers: 320000,
               engagement_rate: 3.8,
               growth_rate: 8.2,
               rating: 4.7,
-              categories: ["패션", "라이프스타일"],
+              categories: ["fashion", "lifestyle"],
               platforms: ["instagram", "youtube"],
               profile_image: null,
-              bio: "트렌디한 패션 스타일링과 코디 팁을 공유하는 패션 인플루언서입니다.",
+              bio: "A fashion influencer who shares trendy fashion styling and outfit tips.",
               total_deals: 58,
               gender_ratio: { male: 0.25, female: 0.75 },
               age_ratio: { "20-29": 0.5, "30-39": 0.3, "40+": 0.2 },
@@ -148,16 +148,16 @@ export default function InfluencerDetailPage() {
             },
             "4": {
               id: "4",
-              channel_name: "여행블로거",
-              name: "여행블로거",
+              channel_name: "Travel Blogger",
+              name: "Travel Blogger",
               followers: 150000,
               engagement_rate: 6.1,
               growth_rate: 18.7,
               rating: 4.9,
-              categories: ["여행", "맛집"],
+              categories: ["travel", "food"],
               platforms: ["instagram", "youtube", "tiktok"],
               profile_image: null,
-              bio: "국내외 여행 정보와 여행 팁을 공유하는 여행 전문 크리에이터입니다.",
+              bio: "A travel expert creator who shares domestic and international travel information and tips.",
               total_deals: 28,
               gender_ratio: { male: 0.45, female: 0.55 },
               age_ratio: { "20-29": 0.3, "30-39": 0.4, "40+": 0.3 },
@@ -165,16 +165,16 @@ export default function InfluencerDetailPage() {
             },
             "5": {
               id: "5",
-              channel_name: "테크리뷰어",
-              name: "테크리뷰어",
+              channel_name: "Tech Reviewer",
+              name: "Tech Reviewer",
               followers: 420000,
               engagement_rate: 3.2,
               growth_rate: 10.5,
               rating: 4.6,
-              categories: ["기술", "리뷰"],
+              categories: ["tech", "review"],
               platforms: ["youtube"],
               profile_image: null,
-              bio: "최신 기술 제품을 깊이 있게 리뷰하는 테크 전문가입니다.",
+              bio: "A tech expert who provides in-depth reviews of the latest technology products.",
               total_deals: 67,
               gender_ratio: { male: 0.7, female: 0.3 },
               age_ratio: { "20-29": 0.25, "30-39": 0.5, "40+": 0.25 },
@@ -182,16 +182,16 @@ export default function InfluencerDetailPage() {
             },
             "6": {
               id: "6",
-              channel_name: "피트니스코치",
-              name: "피트니스코치",
+              channel_name: "Fitness Coach",
+              name: "Fitness Coach",
               followers: 280000,
               engagement_rate: 4.8,
               growth_rate: 14.2,
               rating: 4.8,
-              categories: ["건강", "라이프스타일"],
+              categories: ["health", "lifestyle"],
               platforms: ["instagram", "youtube"],
               profile_image: null,
-              bio: "건강한 라이프스타일과 운동 루틴을 공유하는 피트니스 전문가입니다.",
+              bio: "A fitness expert who shares healthy lifestyle and workout routines.",
               total_deals: 41,
               gender_ratio: { male: 0.5, female: 0.5 },
               age_ratio: { "20-29": 0.3, "30-39": 0.45, "40+": 0.25 },
@@ -199,16 +199,16 @@ export default function InfluencerDetailPage() {
             },
             "7": {
               id: "7",
-              channel_name: "홈데코인플루언서",
-              name: "홈데코인플루언서",
+              channel_name: "Home Decor Influencer",
+              name: "Home Decor Influencer",
               followers: 190000,
               engagement_rate: 5.5,
               growth_rate: 16.8,
               rating: 4.9,
-              categories: ["인테리어", "라이프스타일"],
+              categories: ["interior", "lifestyle"],
               platforms: ["instagram"],
               profile_image: null,
-              bio: "아늑한 인테리어와 홈스타일링을 소개하는 인테리어 전문가입니다.",
+              bio: "An interior design expert who introduces cozy interior design and home styling.",
               total_deals: 35,
               gender_ratio: { male: 0.2, female: 0.8 },
               age_ratio: { "20-29": 0.25, "30-39": 0.5, "40+": 0.25 },
@@ -216,16 +216,16 @@ export default function InfluencerDetailPage() {
             },
             "8": {
               id: "8",
-              channel_name: "뷰티튜터",
-              name: "뷰티튜터",
+              channel_name: "Beauty Tutor",
+              name: "Beauty Tutor",
               followers: 350000,
               engagement_rate: 4.2,
               growth_rate: 11.3,
               rating: 4.7,
-              categories: ["뷰티", "튜토리얼"],
+              categories: ["beauty", "tutorial"],
               platforms: ["youtube", "instagram"],
               profile_image: null,
-              bio: "초보자도 따라할 수 있는 메이크업 튜토리얼을 제공하는 뷰티 전문가입니다.",
+              bio: "A beauty expert who provides makeup tutorials that even beginners can follow.",
               total_deals: 52,
               gender_ratio: { male: 0.1, female: 0.9 },
               age_ratio: { "20-29": 0.45, "30-39": 0.4, "40+": 0.15 },
@@ -237,7 +237,7 @@ export default function InfluencerDetailPage() {
           setInfluencer(influencerData)
         }
 
-        // 콘텐츠 데이터 가져오기
+        // Fetch content data
         let contentData = null
         try {
           const { data, error } = await supabase
@@ -254,13 +254,13 @@ export default function InfluencerDetailPage() {
           console.warn("Supabase content query error:", supabaseError)
         }
 
-        // 더미 콘텐츠 데이터
+        // Dummy content data
         if (!contentData || contentData.length === 0) {
           const dummyContents = [
             {
               id: "1",
               influencer_id: id,
-              title: "봄 메이크업 튜토리얼",
+              title: "Spring Makeup Tutorial",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+1",
               views: 125000,
               platform: "youtube",
@@ -270,7 +270,7 @@ export default function InfluencerDetailPage() {
             {
               id: "2",
               influencer_id: id,
-              title: "신제품 리뷰 - 파운데이션",
+              title: "New Product Review - Foundation",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+2",
               views: 98000,
               platform: "instagram",
@@ -280,7 +280,7 @@ export default function InfluencerDetailPage() {
             {
               id: "3",
               influencer_id: id,
-              title: "일상 브이로그",
+              title: "Daily Vlog",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+3",
               views: 156000,
               platform: "youtube",
@@ -290,7 +290,7 @@ export default function InfluencerDetailPage() {
             {
               id: "4",
               influencer_id: id,
-              title: "제품 언박싱",
+              title: "Product Unboxing",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+4",
               views: 87000,
               platform: "tiktok",
@@ -300,7 +300,7 @@ export default function InfluencerDetailPage() {
             {
               id: "5",
               influencer_id: id,
-              title: "메이크업 팁 & 트릭",
+              title: "Makeup Tips & Tricks",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+5",
               views: 203000,
               platform: "youtube",
@@ -310,7 +310,7 @@ export default function InfluencerDetailPage() {
             {
               id: "6",
               influencer_id: id,
-              title: "스킨케어 루틴 공유",
+              title: "Skincare Routine Share",
               thumbnail: "https://via.placeholder.com/400x225?text=Content+6",
               views: 142000,
               platform: "instagram",
@@ -323,7 +323,7 @@ export default function InfluencerDetailPage() {
           setContents(contentData)
         }
 
-        // 캠페인 이력 가져오기
+        // Fetch campaign history
         let campaignData = null
         try {
           const { data, error } = await supabase
@@ -412,7 +412,7 @@ export default function InfluencerDetailPage() {
 
     try {
       const insight = await generateInfluencerInsight({
-        name: influencer.channel_name || influencer.name || "인플루언서",
+        name: influencer.channel_name || influencer.name || "Influencer",
         followers: influencer.followers || 0,
         category: influencer.categories || [],
         engagement_rate: influencer.engagement_rate || 0,
@@ -424,10 +424,10 @@ export default function InfluencerDetailPage() {
       setAiInsight(insight || "")
     } catch (error: any) {
       console.error("Error generating insight:", error)
-      setAiInsight("AI 인사이트 생성 중 오류가 발생했습니다. API 키를 확인해주세요.")
+      setAiInsight("An error occurred while generating AI insight. Please check your API key.")
       toast({
-        title: "AI 인사이트 생성 실패",
-        description: error.message || "다시 시도해주세요",
+        title: "AI Insight Generation Failed",
+        description: error.message || "Please try again",
         variant: "destructive",
       })
     } finally {
@@ -455,7 +455,7 @@ export default function InfluencerDetailPage() {
       <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-primary/80">로딩 중...</p>
+          <p className="text-primary/80">Loading...</p>
         </div>
       </div>
     )
@@ -474,7 +474,7 @@ export default function InfluencerDetailPage() {
           <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
             <CardHeader>
               <div className="flex items-start gap-6 flex-wrap">
-                {/* 프로필 이미지 */}
+                {/* Profile image */}
                 <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
                   {influencer.profile_image ? (
                     <Image
@@ -489,11 +489,11 @@ export default function InfluencerDetailPage() {
                   )}
                 </div>
 
-                {/* 프로필 정보 */}
+                {/* Profile information */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-4 mb-2 flex-wrap">
                     <CardTitle className="text-3xl text-gray-900">
-                      {influencer.channel_name || influencer.name || "채널명"}
+                      {influencer.channel_name || influencer.name || "Channel Name"}
                     </CardTitle>
                     <div className="flex gap-2 items-center">
                       {influencer?.platforms?.includes("instagram") && (
@@ -534,12 +534,12 @@ export default function InfluencerDetailPage() {
                         onClick={() => setIsChannelModalOpen(true)}
                         className="text-primary hover:bg-primary/5"
                       >
-                        채널 바로가기
+                        Channel Shortcut
                       </Button>
                     </div>
                   </div>
                   <CardDescription className="text-lg text-primary/70 mb-2">
-                    {formatNumber(influencer.followers || 0)} 팔로워
+                    {formatNumber(influencer.followers || 0)} followers
                   </CardDescription>
                   {influencer.bio && (
                     <p className="text-sm text-primary/80 mt-3 leading-relaxed mb-4">
@@ -550,13 +550,13 @@ export default function InfluencerDetailPage() {
                     <div className="flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-primary/60" />
                       <span className="text-sm text-primary/80">
-                        누적 거래 수 {influencer.total_deals || 0}건
+                        Total Deals {influencer.total_deals || 0}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Star className="w-5 h-5 text-primary/60" />
                       <span className="text-sm text-primary/80">
-                        평점 {influencer.rating || 0}/5.0
+                        Rating {influencer.rating || 0}/5.0
                       </span>
                     </div>
                   </div>
@@ -567,7 +567,7 @@ export default function InfluencerDetailPage() {
                       className="bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl"
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      컨택하기
+                      Contact
                     </Button>
                     <Button 
                       onClick={handleGenerateInsight} 
@@ -576,7 +576,7 @@ export default function InfluencerDetailPage() {
                       className="border-primary text-primary hover:bg-primary/5 rounded-xl"
                     >
                       <Sparkles className="w-4 h-4 mr-2" />
-                      AI 인사이트 요약 보기
+                      View AI Insight Summary
                     </Button>
                   </div>
                 </div>
@@ -588,18 +588,18 @@ export default function InfluencerDetailPage() {
         {/* Tabs */}
         <Tabs defaultValue="content" className="space-y-6">
           <TabsList className="bg-gray-100 rounded-xl">
-            <TabsTrigger value="content" className="rounded-lg">콘텐츠</TabsTrigger>
-            <TabsTrigger value="insights" className="rounded-lg">인사이트</TabsTrigger>
-            <TabsTrigger value="campaigns" className="rounded-lg">캠페인 이력</TabsTrigger>
+            <TabsTrigger value="content" className="rounded-lg">Content</TabsTrigger>
+            <TabsTrigger value="insights" className="rounded-lg">Insights</TabsTrigger>
+            <TabsTrigger value="campaigns" className="rounded-lg">Campaign History</TabsTrigger>
           </TabsList>
 
-          {/* 콘텐츠 탭 */}
+          {/* Content tab */}
           <TabsContent value="content">
             <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-gray-900">주요 콘텐츠</CardTitle>
+                <CardTitle className="text-gray-900">Featured Content</CardTitle>
                 <CardDescription className="text-primary/80">
-                  인플루언서의 대표적인 콘텐츠를 확인하세요
+                  Check out the influencer's representative content
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -646,7 +646,7 @@ export default function InfluencerDetailPage() {
                             className="w-full mt-3 text-primary hover:bg-primary/5"
                             onClick={() => window.open(content?.content_url || "#", "_blank")}
                           >
-                            콘텐츠 보기
+                            View Content
                             <ExternalLink className="w-4 h-4 ml-2" />
                           </Button>
                         </CardContent>
@@ -656,17 +656,17 @@ export default function InfluencerDetailPage() {
                 </div>
                 {(!contents || contents.length === 0) && (
                   <div className="text-center py-12 text-primary/60">
-                    콘텐츠가 없습니다
+                    No content available
                   </div>
                 )}
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* 인사이트 탭 */}
+          {/* Insights tab */}
           <TabsContent value="insights">
             <div className="space-y-6">
-              {/* 통계 카드 */}
+              {/* Statistics cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
                   <CardContent className="p-6">
@@ -675,7 +675,7 @@ export default function InfluencerDetailPage() {
                         <TrendingUp className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-primary/70">평균 참여율</p>
+                        <p className="text-sm text-primary/70">Average Engagement Rate</p>
                         <p className="text-2xl font-bold text-gray-900">
                           {influencer.engagement_rate || 0}%
                         </p>
@@ -690,7 +690,7 @@ export default function InfluencerDetailPage() {
                         <Users className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-primary/70">성장률</p>
+                        <p className="text-sm text-primary/70">Growth Rate</p>
                         <p className="text-2xl font-bold text-gray-900">
                           {influencer.growth_rate || 0}%
                         </p>
@@ -705,7 +705,7 @@ export default function InfluencerDetailPage() {
                         <Eye className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-primary/70">평균 도달수</p>
+                        <p className="text-sm text-primary/70">Average Reach</p>
                         <p className="text-2xl font-bold text-gray-900">
                           {formatNumber(Math.floor((influencer.followers || 0) * 0.15))}
                         </p>
@@ -715,7 +715,7 @@ export default function InfluencerDetailPage() {
                 </Card>
               </div>
 
-              {/* 플랫폼 선택 */}
+              {/* Platform selection */}
               <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
                 <CardContent className="pt-6">
                   <div className="flex flex-wrap gap-2">
@@ -730,7 +730,7 @@ export default function InfluencerDetailPage() {
                           : "border-gray-300 text-gray-700 bg-transparent hover:bg-gray-50"
                       }
                     >
-                      전체
+                      All
                     </Button>
                     {influencer?.platforms?.includes("instagram") && (
                       <Button
@@ -796,13 +796,13 @@ export default function InfluencerDetailPage() {
                 </CardContent>
               </Card>
 
-              {/* 차트 */}
+              {/* Charts */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* 팔로워 추이 */}
+                {/* Follower trend */}
                 <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-gray-900">팔로워 추이</CardTitle>
+                      <CardTitle className="text-gray-900">Follower Trend</CardTitle>
                       <div className="flex gap-2">
                         <Button
                           variant={followerPeriod === "daily" ? "default" : "ghost"}
@@ -810,7 +810,7 @@ export default function InfluencerDetailPage() {
                           onClick={() => setFollowerPeriod("daily")}
                           className={`text-xs h-7 ${followerPeriod === "daily" ? "bg-primary text-white" : ""}`}
                         >
-                          일별
+                          Daily
                         </Button>
                         <Button
                           variant={followerPeriod === "monthly" ? "default" : "ghost"}
@@ -818,7 +818,7 @@ export default function InfluencerDetailPage() {
                           onClick={() => setFollowerPeriod("monthly")}
                           className={`text-xs h-7 ${followerPeriod === "monthly" ? "bg-primary text-white" : ""}`}
                         >
-                          월별
+                          Monthly
                         </Button>
                         <Button
                           variant={followerPeriod === "yearly" ? "default" : "ghost"}
@@ -826,7 +826,7 @@ export default function InfluencerDetailPage() {
                           onClick={() => setFollowerPeriod("yearly")}
                           className={`text-xs h-7 ${followerPeriod === "yearly" ? "bg-primary text-white" : ""}`}
                         >
-                          연별
+                          Yearly
                         </Button>
                       </div>
                     </div>
@@ -837,13 +837,13 @@ export default function InfluencerDetailPage() {
                         data={{
                           labels:
                             followerPeriod === "daily"
-                              ? Array.from({ length: 30 }, (_, i) => `${i + 1}일`)
+                              ? Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`)
                               : followerPeriod === "monthly"
-                              ? ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+                              ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                               : ["2021", "2022", "2023", "2024"],
                           datasets: [
                             {
-                              label: "팔로워 수",
+                              label: "Followers",
                               data:
                                 followerPeriod === "daily"
                                   ? Array.from({ length: 30 }, (_, i) =>
@@ -899,17 +899,17 @@ export default function InfluencerDetailPage() {
                   </CardContent>
                 </Card>
 
-                {/* 성별·연령 비율 */}
+                {/* Gender & Age Ratio */}
                 <Card className="bg-white border-gray-100 rounded-2xl shadow-sm">
                   <CardHeader>
-                    <CardTitle className="text-gray-900">성별·연령 비율</CardTitle>
+                    <CardTitle className="text-gray-900">Gender & Age Ratio</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
                       <div className="h-48">
                         <Doughnut
                           data={{
-                            labels: ["여성", "남성"],
+                            labels: ["Female", "Male"],
                             datasets: [
                               {
                                 data: [
@@ -939,10 +939,10 @@ export default function InfluencerDetailPage() {
                       <div className="h-48">
                         <Bar
                           data={{
-                            labels: ["20-29세", "30-39세", "40-49세", "50세 이상"],
+                            labels: ["20-29", "30-39", "40-49", "50+"],
                             datasets: [
                               {
-                                label: "비율",
+                                label: "Ratio",
                                 data: [
                                   (influencer.age_ratio?.["20-29"] || 0.35) * 100,
                                   (influencer.age_ratio?.["30-39"] || 0.45) * 100,
@@ -992,7 +992,7 @@ export default function InfluencerDetailPage() {
             </div>
           </TabsContent>
 
-          {/* 캠페인 이력 탭 */}
+          {/* Campaign History tab */}
           <TabsContent value="campaigns">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {campaigns?.map((campaign) => {
@@ -1004,15 +1004,15 @@ export default function InfluencerDetailPage() {
                         {isPrivate && (
                           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center">
                             <div className="text-center">
-                              <p className="text-lg font-semibold text-gray-700 mb-2">비공개</p>
-                              <p className="text-sm text-primary/70">이 캠페인은 비공개입니다</p>
+                              <p className="text-lg font-semibold text-gray-700 mb-2">Private</p>
+                              <p className="text-sm text-primary/70">This campaign is private</p>
                             </div>
                           </div>
                         )}
                         <CardHeader>
                           <div className="flex items-center justify-between mb-2">
                             <CardTitle className="text-lg text-gray-900">
-                              {campaign?.campaign_name || campaign?.brand_name || "브랜드명"}
+                              {campaign?.campaign_name || campaign?.brand_name || "Brand Name"}
                             </CardTitle>
                             <span
                               className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -1026,38 +1026,38 @@ export default function InfluencerDetailPage() {
                               }`}
                             >
                               {campaign?.status === "completed"
-                                ? "완료"
+                                ? "Completed"
                                 : campaign?.status === "ongoing"
-                                ? "진행중"
+                                ? "Ongoing"
                                 : campaign?.status === "private"
-                                ? "비공개"
-                                : "검토중"}
+                                ? "Private"
+                                : "Pending"}
                             </span>
                           </div>
                           <CardDescription className="text-sm text-primary/70">
                             {campaign?.brand_name && `${campaign.brand_name} · `}
-                            {campaign?.start_date && new Date(campaign.start_date).toLocaleDateString("ko-KR")} -{" "}
-                            {campaign?.end_date && new Date(campaign.end_date).toLocaleDateString("ko-KR")}
+                            {campaign?.start_date && new Date(campaign.start_date).toLocaleDateString("en-US")} -{" "}
+                            {campaign?.end_date && new Date(campaign.end_date).toLocaleDateString("en-US")}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className={isPrivate ? "blur-sm" : ""}>
                           <div className="grid grid-cols-3 gap-3 mb-4">
                             <div>
-                              <p className="text-xs text-primary/70 mb-1">도달수</p>
+                              <p className="text-xs text-primary/70 mb-1">Reach</p>
                               <p className="text-base font-semibold text-gray-900">
                                 {formatNumber(campaign?.reach || 0)}
                               </p>
                             </div>
                             <div>
-                              <p className="text-xs text-primary/70 mb-1">참여율</p>
+                              <p className="text-xs text-primary/70 mb-1">Engagement</p>
                               <p className="text-base font-semibold text-gray-900">
                                 {(campaign?.engagement_rate || campaign?.engagement || 0).toFixed(1)}%
                               </p>
                             </div>
                             <div>
-                              <p className="text-xs text-primary/70 mb-1">예산</p>
+                              <p className="text-xs text-primary/70 mb-1">Budget</p>
                               <p className="text-base font-semibold text-gray-900">
-                                {campaign?.budget?.toLocaleString() || 0}원
+                                ${campaign?.budget?.toLocaleString() || 0}
                               </p>
                             </div>
                           </div>
@@ -1077,7 +1077,7 @@ export default function InfluencerDetailPage() {
               {(!campaigns || campaigns.length === 0) && (
                 <Card className="col-span-full bg-white border-gray-100 rounded-2xl">
                   <CardContent className="py-12 text-center text-primary/60">
-                    캠페인 이력이 없습니다
+                    No campaign history
                   </CardContent>
                 </Card>
               )}
@@ -1087,18 +1087,18 @@ export default function InfluencerDetailPage() {
       </main>
       <Footer />
 
-      {/* 제안 모달 */}
+      {/* Proposal modal */}
       <ProposalModal
         open={isProposalModalOpen}
         onOpenChange={setIsProposalModalOpen}
         influencerId={id}
       />
 
-      {/* 채널 바로가기 모달 */}
+      {/* Channel shortcut modal */}
       <Dialog open={isChannelModalOpen} onOpenChange={setIsChannelModalOpen}>
         <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader>
-            <DialogTitle className="text-gray-900">채널 바로가기</DialogTitle>
+            <DialogTitle className="text-gray-900">Channel Shortcut</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             {influencer?.platforms?.includes("instagram") && (
@@ -1128,7 +1128,7 @@ export default function InfluencerDetailPage() {
                       const url = `https://instagram.com/${influencer?.channel_name || "channel"}`
                       navigator.clipboard.writeText(url)
                       toast({
-                        title: "링크가 복사되었습니다",
+                        title: "Link copied",
                       })
                     }}
                   >
@@ -1143,7 +1143,7 @@ export default function InfluencerDetailPage() {
                   <Youtube className="w-6 h-6 text-gray-400" />
                   <div>
                     <p className="font-medium text-gray-900">YouTube</p>
-                    <p className="text-sm text-primary/70">{influencer?.channel_name || "채널명"}</p>
+                    <p className="text-sm text-primary/70">{influencer?.channel_name || "Channel Name"}</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -1164,7 +1164,7 @@ export default function InfluencerDetailPage() {
                       const url = `https://youtube.com/@${influencer?.channel_name || "channel"}`
                       navigator.clipboard.writeText(url)
                       toast({
-                        title: "링크가 복사되었습니다",
+                        title: "Link copied",
                       })
                     }}
                   >
@@ -1200,7 +1200,7 @@ export default function InfluencerDetailPage() {
                       const url = `https://tiktok.com/@${influencer?.channel_name || "channel"}`
                       navigator.clipboard.writeText(url)
                       toast({
-                        title: "링크가 복사되었습니다",
+                        title: "Link copied",
                       })
                     }}
                   >
@@ -1215,7 +1215,7 @@ export default function InfluencerDetailPage() {
                   <Facebook className="w-6 h-6 text-gray-400" />
                   <div>
                     <p className="font-medium text-gray-900">Facebook</p>
-                    <p className="text-sm text-primary/70">{influencer?.channel_name || "채널명"}</p>
+                    <p className="text-sm text-primary/70">{influencer?.channel_name || "Channel Name"}</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -1236,7 +1236,7 @@ export default function InfluencerDetailPage() {
                       const url = `https://facebook.com/${influencer?.channel_name || "channel"}`
                       navigator.clipboard.writeText(url)
                       toast({
-                        title: "링크가 복사되었습니다",
+                        title: "Link copied",
                       })
                     }}
                   >
@@ -1249,23 +1249,23 @@ export default function InfluencerDetailPage() {
         </DialogContent>
       </Dialog>
 
-      {/* AI 인사이트 모달 */}
+      {/* AI Insight modal */}
       <Dialog open={isInsightModalOpen} onOpenChange={setIsInsightModalOpen}>
         <DialogContent className="sm:max-w-2xl bg-white">
           <DialogHeader>
             <DialogTitle className="text-gray-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
-              AI 인사이트 요약
+              AI Insight Summary
             </DialogTitle>
             <DialogDescription className="text-primary/80">
-              인플루언서의 데이터를 분석한 AI 요약입니다
+              AI summary analyzing the influencer's data
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4">
             {isGeneratingInsight ? (
               <div className="flex flex-col items-center justify-center py-12">
                 <Loader2 className="w-8 h-8 animate-spin text-primary mb-4" />
-                <p className="text-primary/80">AI가 인사이트를 생성하고 있습니다...</p>
+                <p className="text-primary/80">AI is generating insights...</p>
               </div>
             ) : aiInsight ? (
               <div className="p-6 bg-gray-50 rounded-xl">
@@ -1275,7 +1275,7 @@ export default function InfluencerDetailPage() {
               </div>
             ) : (
               <div className="p-6 bg-gray-50 rounded-xl text-center text-primary/60">
-                인사이트를 생성할 수 없습니다
+                Unable to generate insights
               </div>
             )}
           </div>

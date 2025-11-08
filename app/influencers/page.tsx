@@ -25,7 +25,7 @@ export default function InfluencersPage() {
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
-  // URL 파라미터에서 검색어와 필터 가져오기
+  // Get search query and filters from URL parameters
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search)
@@ -54,88 +54,88 @@ export default function InfluencersPage() {
           }
         } catch (supabaseError) {
           console.warn("Supabase query error:", supabaseError)
-          // 에러가 발생해도 계속 진행 (더미 데이터 사용)
+          // Continue even if error occurs (use dummy data)
         }
 
-        // 더미 데이터 (Supabase에 데이터가 없을 때)
+        // Dummy data (when Supabase has no data)
         const dummyData = [
           {
             id: "1",
-            channel_name: "뷰티크리에이터",
+            channel_name: "Beauty Creator",
             followers: 250000,
             engagement_rate: 4.5,
             rating: 4.8,
-            categories: ["뷰티", "라이프스타일"],
+            categories: ["beauty", "lifestyle"],
             platforms: ["instagram", "youtube"],
             created_at: new Date().toISOString(),
           },
           {
             id: "2",
-            channel_name: "맛집탐방러",
+            channel_name: "Food Explorer",
             followers: 180000,
             engagement_rate: 5.2,
             rating: 4.9,
-            categories: ["맛집", "여행"],
+            categories: ["food", "travel"],
             platforms: ["instagram", "tiktok"],
             created_at: new Date().toISOString(),
           },
           {
             id: "3",
-            channel_name: "패션스타일리스트",
+            channel_name: "Fashion Stylist",
             followers: 320000,
             engagement_rate: 3.8,
             rating: 4.7,
-            categories: ["패션", "라이프스타일"],
+            categories: ["fashion", "lifestyle"],
             platforms: ["instagram", "youtube"],
             created_at: new Date().toISOString(),
           },
           {
             id: "4",
-            channel_name: "여행블로거",
+            channel_name: "Travel Blogger",
             followers: 150000,
             engagement_rate: 6.1,
             rating: 4.9,
-            categories: ["여행", "맛집"],
+            categories: ["travel", "food"],
             platforms: ["instagram", "youtube", "tiktok"],
             created_at: new Date().toISOString(),
           },
           {
             id: "5",
-            channel_name: "테크리뷰어",
+            channel_name: "Tech Reviewer",
             followers: 420000,
             engagement_rate: 3.2,
             rating: 4.6,
-            categories: ["기술", "리뷰"],
+            categories: ["tech", "review"],
             platforms: ["youtube"],
             created_at: new Date().toISOString(),
           },
           {
             id: "6",
-            channel_name: "피트니스코치",
+            channel_name: "Fitness Coach",
             followers: 280000,
             engagement_rate: 4.8,
             rating: 4.8,
-            categories: ["건강", "라이프스타일"],
+            categories: ["health", "lifestyle"],
             platforms: ["instagram", "youtube"],
             created_at: new Date().toISOString(),
           },
           {
             id: "7",
-            channel_name: "홈데코인플루언서",
+            channel_name: "Home Decor Influencer",
             followers: 190000,
             engagement_rate: 5.5,
             rating: 4.9,
-            categories: ["인테리어", "라이프스타일"],
+            categories: ["interior", "lifestyle"],
             platforms: ["instagram"],
             created_at: new Date().toISOString(),
           },
           {
             id: "8",
-            channel_name: "뷰티튜터",
+            channel_name: "Beauty Tutor",
             followers: 350000,
             engagement_rate: 4.2,
             rating: 4.7,
-            categories: ["뷰티", "튜토리얼"],
+            categories: ["beauty", "tutorial"],
             platforms: ["youtube", "instagram"],
             created_at: new Date().toISOString(),
           },
@@ -145,35 +145,35 @@ export default function InfluencersPage() {
         setFilteredInfluencers(data && data.length > 0 ? data : dummyData)
       } catch (error) {
         console.error("Error fetching influencers:", error)
-        // 에러 발생 시 더미 데이터 사용
+        // Use dummy data on error
         const dummyData = [
           {
             id: "1",
-            channel_name: "뷰티크리에이터",
+            channel_name: "Beauty Creator",
             followers: 250000,
             engagement_rate: 4.5,
             rating: 4.8,
-            categories: ["뷰티", "라이프스타일"],
+            categories: ["beauty", "lifestyle"],
             platforms: ["instagram", "youtube"],
             created_at: new Date().toISOString(),
           },
           {
             id: "2",
-            channel_name: "맛집탐방러",
+            channel_name: "Food Explorer",
             followers: 180000,
             engagement_rate: 5.2,
             rating: 4.9,
-            categories: ["맛집", "여행"],
+            categories: ["food", "travel"],
             platforms: ["instagram", "tiktok"],
             created_at: new Date().toISOString(),
           },
           {
             id: "3",
-            channel_name: "패션스타일리스트",
+            channel_name: "Fashion Stylist",
             followers: 320000,
             engagement_rate: 3.8,
             rating: 4.7,
-            categories: ["패션", "라이프스타일"],
+            categories: ["fashion", "lifestyle"],
             platforms: ["instagram", "youtube"],
             created_at: new Date().toISOString(),
           },
@@ -191,7 +191,7 @@ export default function InfluencersPage() {
   useEffect(() => {
     let filtered = [...influencers]
 
-    // 검색 필터
+    // Search filter
     if (searchQuery) {
       filtered = filtered.filter(
         (inf) =>
@@ -202,28 +202,28 @@ export default function InfluencersPage() {
       )
     }
 
-    // 카테고리 필터 (복수 선택)
+    // Category filter (multiple selection)
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((inf) =>
         inf.categories?.some((cat: string) => selectedCategories.includes(cat))
       )
     }
 
-    // 플랫폼 필터 (복수 선택)
+    // Platform filter (multiple selection)
     if (selectedPlatforms.length > 0) {
       filtered = filtered.filter((inf) =>
         inf.platforms?.some((plat: string) => selectedPlatforms.includes(plat))
       )
     }
 
-    // 팔로워 수 필터
+    // Follower count filter
     filtered = filtered.filter(
       (inf) =>
         (inf.followers || 0) >= followerRange[0] &&
         (inf.followers || 0) <= followerRange[1]
     )
 
-    // 정렬
+    // Sort
     if (sortBy === "popular") {
       filtered.sort((a, b) => (b.followers || 0) - (a.followers || 0))
     } else if (sortBy === "recent") {
@@ -251,23 +251,23 @@ export default function InfluencersPage() {
       <Header />
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8">인플루언서 찾기</h1>
+          <h1 className="text-4xl font-bold mb-8">Find Influencers</h1>
 
-          {/* 검색 및 필터 섹션 */}
+          {/* Search and filter section */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Filter className="w-5 h-5" />
-                필터
+                Filters
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* 검색 */}
+              {/* Search */}
               <div className="flex gap-4">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <Input
-                    placeholder="채널명 또는 카테고리로 검색..."
+                    placeholder="Search by channel name or category..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
@@ -275,22 +275,22 @@ export default function InfluencersPage() {
                 </div>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-40">
-                    <SelectValue placeholder="정렬" />
+                    <SelectValue placeholder="Sort" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="popular">인기순</SelectItem>
-                    <SelectItem value="recent">최신순</SelectItem>
-                    <SelectItem value="engagement">참여율순</SelectItem>
+                    <SelectItem value="popular">Popular</SelectItem>
+                    <SelectItem value="recent">Recent</SelectItem>
+                    <SelectItem value="engagement">Engagement</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* 필터 옵션 */}
+              {/* Filter options */}
               <div className="space-y-6">
                 <div>
-                  <label className="text-sm font-medium mb-3 block">카테고리</label>
+                  <label className="text-sm font-medium mb-3 block">Category</label>
                   <div className="flex flex-wrap gap-2">
-                    {["뷰티", "맛집", "여행", "패션", "라이프스타일", "기술", "건강", "인테리어"].map((cat) => (
+                    {["beauty", "food", "travel", "fashion", "lifestyle", "tech", "health", "interior"].map((cat) => (
                       <Button
                         key={cat}
                         type="button"
@@ -316,7 +316,7 @@ export default function InfluencersPage() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">플랫폼</label>
+                  <label className="text-sm font-medium mb-3 block">Platform</label>
                   <div className="flex flex-wrap gap-2">
                     {[
                       { value: "instagram", label: "Instagram" },
@@ -349,7 +349,7 @@ export default function InfluencersPage() {
 
                 <div>
                   <label className="text-sm font-medium mb-3 block">
-                    팔로워 수: {formatNumber(followerRange[0])} - {formatNumber(followerRange[1])}
+                    Followers: {formatNumber(followerRange[0])} - {formatNumber(followerRange[1])}
                   </label>
                   <Slider
                     value={followerRange}
@@ -364,19 +364,19 @@ export default function InfluencersPage() {
             </CardContent>
           </Card>
 
-          {/* 결과 */}
+          {/* Results */}
           {loading ? (
-            <div className="text-center py-12 text-primary/60">로딩 중...</div>
+            <div className="text-center py-12 text-primary/60">Loading...</div>
           ) : filteredInfluencers.length === 0 ? (
             <Card>
               <CardContent className="py-12 text-center text-primary/60">
-                검색 결과가 없습니다
+                No search results found
               </CardContent>
             </Card>
           ) : (
             <>
               <div className="mb-4 text-sm text-primary/80">
-                총 {filteredInfluencers.length}명의 인플루언서를 찾았습니다
+                Found {filteredInfluencers.length} influencers
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredInfluencers.map((influencer, index) => (
@@ -394,10 +394,10 @@ export default function InfluencersPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <CardTitle className="text-base font-semibold truncate mb-1 text-gray-900">
-                              {influencer.channel_name || "채널명"}
+                              {influencer.channel_name || "Channel Name"}
                             </CardTitle>
                             <CardDescription className="text-sm text-primary/70 truncate">
-                              {formatNumber(influencer.followers || 0)} 팔로워
+                              {formatNumber(influencer.followers || 0)} followers
                             </CardDescription>
                           </div>
                         </div>
@@ -406,11 +406,11 @@ export default function InfluencersPage() {
                         <div className="space-y-3 mb-4">
                           <div className="flex items-center gap-2 text-sm">
                             <TrendingUp className="w-4 h-4 text-primary/60" />
-                            <span className="text-primary/80">참여율 {influencer.engagement_rate || 0}%</span>
+                            <span className="text-primary/80">Engagement {influencer.engagement_rate || 0}%</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm">
                             <Star className="w-4 h-4 text-primary/60" />
-                            <span className="text-primary/80">평점 {influencer.rating || 0}</span>
+                            <span className="text-primary/80">Rating {influencer.rating || 0}</span>
                           </div>
                         </div>
                         {influencer.categories && influencer.categories.length > 0 && (
@@ -428,7 +428,7 @@ export default function InfluencersPage() {
                         <div className="flex gap-2 mt-auto pt-4 border-t border-gray-100">
                           <Link href={`/influencer/${influencer.id}`} className="flex-1">
                             <Button variant="ghost" className="w-full text-primary hover:bg-primary/5 hover:text-primary">
-                              상세보기
+                              View Details
                             </Button>
                           </Link>
                           <Button className="flex-1 bg-primary hover:bg-primary/90 text-white">Contact</Button>

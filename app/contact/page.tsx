@@ -30,7 +30,7 @@ export default function ContactPage() {
 
     if (!budget || !category || !contactPerson || !phone || !email || !message) {
       toast({
-        title: "필수 항목을 입력해주세요",
+        title: "Please fill in all required fields",
         variant: "destructive",
       })
       return
@@ -51,11 +51,11 @@ export default function ContactPage() {
       if (error) throw error
 
       toast({
-        title: "문의가 접수되었습니다 ✅",
-        description: "빠른 시일 내에 답변드리겠습니다",
+        title: "Inquiry submitted ✅",
+        description: "We'll get back to you soon",
       })
 
-      // 폼 초기화
+      // Reset form
       setBudget("")
       setCategory("")
       setLink("")
@@ -65,7 +65,7 @@ export default function ContactPage() {
       setMessage("")
     } catch (error: any) {
       toast({
-        title: "오류가 발생했습니다",
+        title: "An error occurred",
         description: error.message,
         variant: "destructive",
       })
@@ -80,50 +80,50 @@ export default function ContactPage() {
       <main className="flex-1 container mx-auto px-6 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="mb-8 text-center">
-            <h1 className="text-4xl font-bold mb-4">문의하기</h1>
+            <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
             <p className="text-gray-600">
-              궁금한 사항이 있으시면 언제든지 문의해주세요
+              Feel free to reach out if you have any questions
             </p>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>문의 양식</CardTitle>
+              <CardTitle>Contact Form</CardTitle>
               <CardDescription>
-                아래 양식을 작성해주시면 빠른 시일 내에 답변드리겠습니다
+                Fill out the form below and we'll get back to you soon
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="budget">캠페인 예산 *</Label>
+                    <Label htmlFor="budget">Campaign Budget *</Label>
                     <Input
                       id="budget"
                       type="number"
-                      placeholder="예: 1000000"
+                      placeholder="e.g., 1000000"
                       value={budget}
                       onChange={(e) => setBudget(e.target.value)}
                       required
                     />
                   </div>
                   <div>
-                    <Label htmlFor="category">구분 *</Label>
+                    <Label htmlFor="category">Category *</Label>
                     <Select value={category} onValueChange={setCategory} required>
                       <SelectTrigger id="category">
-                        <SelectValue placeholder="선택하세요" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="brand">브랜드</SelectItem>
-                        <SelectItem value="influencer">인플루언서</SelectItem>
-                        <SelectItem value="other">기타</SelectItem>
+                        <SelectItem value="brand">Brand</SelectItem>
+                        <SelectItem value="influencer">Influencer</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="link">링크</Label>
+                  <Label htmlFor="link">Link</Label>
                   <Input
                     id="link"
                     type="url"
@@ -134,10 +134,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="contact-person">담당자 *</Label>
+                  <Label htmlFor="contact-person">Contact Person *</Label>
                   <Input
                     id="contact-person"
-                    placeholder="홍길동"
+                    placeholder="John Doe"
                     value={contactPerson}
                     onChange={(e) => setContactPerson(e.target.value)}
                     required
@@ -146,7 +146,7 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="phone">연락처 *</Label>
+                    <Label htmlFor="phone">Phone *</Label>
                     <Input
                       id="phone"
                       type="tel"
@@ -157,7 +157,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">이메일 *</Label>
+                    <Label htmlFor="email">Email *</Label>
                     <Input
                       id="email"
                       type="email"
@@ -170,10 +170,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="message">문의내용 *</Label>
+                  <Label htmlFor="message">Message *</Label>
                   <Textarea
                     id="message"
-                    placeholder="문의 내용을 입력해주세요"
+                    placeholder="Please enter your inquiry"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     rows={6}
@@ -182,7 +182,7 @@ export default function ContactPage() {
                 </div>
 
                 <Button type="submit" disabled={loading} className="w-full" size="lg">
-                  {loading ? "전송 중..." : "문의하기"}
+                  {loading ? "Sending..." : "Submit Inquiry"}
                 </Button>
               </form>
             </CardContent>
@@ -192,21 +192,21 @@ export default function ContactPage() {
             <Card>
               <CardContent className="p-6 text-center">
                 <Mail className="w-8 h-8 text-primary mx-auto mb-2" />
-                <p className="font-semibold mb-1">이메일</p>
+                <p className="font-semibold mb-1">Email</p>
                 <p className="text-sm text-gray-600">contact@inbridge.ai</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6 text-center">
                 <Phone className="w-8 h-8 text-primary mx-auto mb-2" />
-                <p className="font-semibold mb-1">전화</p>
+                <p className="font-semibold mb-1">Phone</p>
                 <p className="text-sm text-gray-600">02-1234-5678</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6 text-center">
                 <Globe className="w-8 h-8 text-primary mx-auto mb-2" />
-                <p className="font-semibold mb-1">웹사이트</p>
+                <p className="font-semibold mb-1">Website</p>
                 <p className="text-sm text-gray-600">www.inbridge.ai</p>
               </CardContent>
             </Card>
