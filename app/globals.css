@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 249 250 251;
+    --foreground: 17 24 39;
+    --card: 255 255 255;
+    --card-foreground: 17 24 39;
+    --popover: 255 255 255;
+    --popover-foreground: 17 24 39;
+    --primary: 0 102 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 245 245 245;
+    --secondary-foreground: 17 24 39;
+    --muted: 245 245 245;
+    --muted-foreground: 107 114 128;
+    --accent: 168 85 247;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 229 231 235;
+    --input: 229 231 235;
+    --ring: 0 102 255;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#F9FAFB] text-foreground;
+    font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  input:not([data-dark]),
+  select:not([data-dark]),
+  textarea:not([data-dark]) {
+    background-color: white !important;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus,
+  select:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #111827 !important;
+  }
+  input,
+  select,
+  textarea {
+    border-color: #E5E7EB !important;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: none !important;
+    border-color: #0066FF !important;
+    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.2) !important;
+  }
+  *:focus {
+    outline: none !important;
+  }
+  *:focus-visible {
+    outline: 2px solid #0066FF !important;
+    outline-offset: 2px !important;
+  }
+  [data-radix-select-content],
+  [data-radix-dropdown-menu-content],
+  [data-radix-popover-content] {
+    background-color: white !important;
+    border-color: #E5E7EB !important;
+  }
+  button,
+  [role="button"] {
+    background-color: transparent !important;
+  }
+  button:not(.bg-primary):not(.bg-destructive):not(.bg-white):not([class*="bg-"]),
+  [role="button"]:not(.bg-primary):not(.bg-destructive):not(.bg-white):not([class*="bg-"]) {
+    background-color: transparent !important;
+  }
+  button:hover:not(.bg-primary):not(.bg-destructive):not([class*="hover:bg-primary"]),
+  [role="button"]:hover:not(.bg-primary):not(.bg-destructive):not([class*="hover:bg-primary"]) {
+    background-color: #F3F4F6 !important;
+  }
+  button[class*="hover:bg-primary"]:hover {
+    background-color: #0066FF !important;
+    color: white !important;
+  }
+  /* 노란색 완전 제거 */
+  * {
+    filter: none !important;
+  }
+  [style*="yellow"],
+  [style*="Yellow"],
+  [style*="#FFD700"],
+  [style*="#FFC107"],
+  [style*="#FFEB3B"],
+  [style*="rgb(255, 235, 59)"],
+  [style*="rgb(255, 193, 7)"],
+  [style*="rgb(255, 215, 0)"] {
+    background-color: transparent !important;
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+  /* 흰색 텍스트 가독성 개선 */
+  .bg-white .text-white,
+  .bg-gray-50 .text-white,
+  .bg-gray-100 .text-white,
+  .bg-gray-200 .text-white {
+    color: #0066FF !important;
+  }
+  /* 갈색/회색을 파란색 계열로 교체 */
+  .text-gray-900 {
+    color: #111827 !important;
+  }
+  .text-gray-800 {
+    color: #0066FF !important;
+  }
+  .text-gray-700 {
+    color: #0066FF !important;
+  }
+  .text-gray-600 {
+    color: rgba(0, 102, 255, 0.8) !important;
+  }
+  .text-gray-500 {
+    color: rgba(0, 102, 255, 0.6) !important;
+  }
+  .text-gray-400 {
+    color: rgba(0, 102, 255, 0.5) !important;
+  }
+  /* muted-foreground를 파란색 계열로 */
+  .text-muted-foreground {
+    color: rgba(0, 102, 255, 0.8) !important;
+  }
+  /* Tabs 노란색 제거 */
+  [data-radix-tabs-list] {
+    background-color: #F3F4F6 !important;
+  }
+  [data-radix-tabs-trigger][data-state="inactive"] {
+    background-color: transparent !important;
+    color: rgba(0, 102, 255, 0.8) !important;
+  }
+  [data-radix-tabs-trigger][data-state="active"] {
+    background-color: #0066FF !important;
+    color: white !important;
+  }
+  /* Slider 노란색 제거 */
+  [data-radix-slider-track] {
+    background-color: #E5E7EB !important;
+  }
+  [data-radix-slider-range] {
+    background-color: #0066FF !important;
+  }
+  [data-radix-slider-thumb] {
+    background-color: white !important;
+    border-color: #0066FF !important;
+  }
+  /* Toast 노란색 제거 */
+  [data-radix-toast-root][data-variant="destructive"] {
+    background-color: rgba(0, 102, 255, 0.1) !important;
+    border-color: rgba(0, 102, 255, 0.2) !important;
+    color: #0066FF !important;
+  }
+  [data-radix-toast-root][data-variant="destructive"] [data-radix-toast-title],
+  [data-radix-toast-root][data-variant="destructive"] [data-radix-toast-description] {
+    color: #0066FF !important;
+  }
+  [data-radix-toast-root].destructive {
+    background-color: rgba(0, 102, 255, 0.1) !important;
+    border-color: rgba(0, 102, 255, 0.2) !important;
+  }
+  [data-radix-toast-root].destructive * {
+    color: #0066FF !important;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
