@@ -42,7 +42,7 @@ export default function ContractPage() {
 
       if (contractData) {
         setContract(contractData)
-        setContractContent(contractData.content)
+        setContractContent(contractData.content || "")
         setSignedByBrand(contractData.signed_by_brand)
         setSignedByInfluencer(contractData.signed_by_influencer)
       } else if (proposalData) {
@@ -57,7 +57,7 @@ export default function ContractPage() {
             deliverables: [],
           })
 
-          setContractContent(content)
+          setContractContent(content || "")
 
           const { data: newContract } = await supabase
             .from("contracts")
