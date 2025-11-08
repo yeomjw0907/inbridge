@@ -97,9 +97,9 @@ export function Header() {
             </>
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/signup">
+              <Link href="/auth">
                 <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-white [&:hover]:bg-primary [&:hover]:text-white">
-                  Login / Sign up
+                  Login
                 </Button>
               </Link>
               <Link href="/signup">
