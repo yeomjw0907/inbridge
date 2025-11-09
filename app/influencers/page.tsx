@@ -263,18 +263,18 @@ export default function InfluencersPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Search */}
-              <div className="flex gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="flex-1 relative min-w-0">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <Input
                     placeholder="Search by channel name or category..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    className="pl-9 sm:pl-10 text-sm sm:text-base"
                   />
                 </div>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="Sort" />
                   </SelectTrigger>
                   <SelectContent>
@@ -425,13 +425,13 @@ export default function InfluencersPage() {
                             ))}
                           </div>
                         )}
-                        <div className="flex gap-2 mt-auto pt-4 border-t border-gray-100">
-                          <Link href={`/influencer/${influencer.id}`} className="flex-1">
-                            <Button variant="ghost" className="w-full text-primary hover:bg-primary/5 hover:text-primary">
+                        <div className="flex flex-col sm:flex-row gap-2 mt-auto pt-4 border-t border-gray-100">
+                          <Link href={`/influencer/${influencer.id}`} className="flex-1 min-w-0">
+                            <Button variant="ghost" className="w-full text-primary hover:bg-primary/5 hover:text-primary text-xs sm:text-sm">
                               View Details
                             </Button>
                           </Link>
-                          <Button className="flex-1 bg-primary hover:bg-primary/90 text-white">Contact</Button>
+                          <Button className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm min-w-0">Contact</Button>
                         </div>
                       </CardContent>
                     </Card>

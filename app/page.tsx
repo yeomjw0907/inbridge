@@ -256,34 +256,35 @@ export default function HomePage() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl mx-auto text-center space-y-6"
           >
-            <h1 className="text-5xl font-bold text-gray-900">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
               Find the Perfect
               <br />
               <span className="text-primary">Influencer for Your Brand</span>
             </h1>
-            <p className="text-xl text-primary/80">
+            <p className="text-base sm:text-lg md:text-xl text-primary/80">
               Connect with influencers that match your brand quickly and easily
             </p>
 
             {/* Prompt input area */}
             <div className="max-w-2xl mx-auto mt-8 space-y-4">
-              <div className="flex gap-3 items-center bg-white rounded-2xl px-4 py-3 border border-primary/30">
+              <div className="flex gap-2 sm:gap-3 items-center bg-white rounded-2xl px-3 sm:px-4 py-3 border border-primary/30">
                 <input
                   type="text"
                   placeholder="e.g., Need a YouTuber for new cosmetics product launch"
                   value={productInput}
                   onChange={(e) => setProductInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="flex-1 h-auto text-base bg-white border-0 text-gray-900 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="flex-1 h-auto text-sm sm:text-base bg-white border-0 text-gray-900 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 min-w-0"
                 />
                 <Button
                   onClick={handleSearch}
                   disabled={loading}
                   size="icon"
                   variant="ghost"
-                  className="h-10 w-10 rounded-xl text-primary hover:bg-primary/10 flex-shrink-0"
+                  className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl text-primary hover:bg-primary/10 flex-shrink-0"
+                  aria-label="Search"
                 >
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
               
@@ -375,12 +376,12 @@ export default function HomePage() {
                           </div>
                         )}
                         <div className="flex flex-col sm:flex-row gap-2 mt-auto pt-4 border-t border-gray-100">
-                          <Link href={`/influencer/${influencer.id}`} className="flex-1">
-                            <Button variant="ghost" className="w-full text-primary hover:bg-primary/5 hover:text-primary">
+                          <Link href={`/influencer/${influencer.id}`} className="flex-1 min-w-0">
+                            <Button variant="ghost" className="w-full text-primary hover:bg-primary/5 hover:text-primary text-xs sm:text-sm">
                               View Details
                             </Button>
                           </Link>
-                          <Button className="flex-1 bg-primary hover:bg-primary/90 text-white">Contact</Button>
+                          <Button className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm min-w-0">Contact</Button>
                         </div>
                       </CardContent>
                     </Card>

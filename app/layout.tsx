@@ -6,8 +6,8 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "inbridge.ai - 브랜드와 인플루언서를 연결하는 AI 플랫폼",
-  description: "AI 기반 인플루언서 마케팅 플랫폼",
+  title: "inbridge.ai - AI Platform Connecting Brands and Influencers",
+  description: "AI-based influencer marketing platform",
 }
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body className={inter.className}>
         {children}
         <Toaster />

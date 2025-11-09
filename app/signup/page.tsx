@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -48,7 +48,7 @@ export default function SignupPage() {
   const [brandBudgetRange, setBrandBudgetRange] = useState("")
   const [brandPreferredPlatforms, setBrandPreferredPlatforms] = useState<string[]>([])
 
-  const handlePlatformToggle = (platform: string, isInfluencer: boolean) => {
+  const handlePlatformToggle = useCallback((platform: string, isInfluencer: boolean) => {
     if (isInfluencer) {
       setInfPlatforms((prev) =>
         prev.includes(platform) ? prev.filter((p) => p !== platform) : [...prev, platform]
@@ -58,27 +58,27 @@ export default function SignupPage() {
         prev.includes(platform) ? prev.filter((p) => p !== platform) : [...prev, platform]
       )
     }
-  }
+  }, [])
 
-  const handleCategoryToggle = (category: string) => {
+  const handleCategoryToggle = useCallback((category: string) => {
     setInfCategory((prev) =>
       prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
     )
-  }
+  }, [])
 
-  const handleCollabTypeToggle = (type: string) => {
+  const handleCollabTypeToggle = useCallback((type: string) => {
     setInfCollabType((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     )
-  }
+  }, [])
 
-  const handleCampaignGoalToggle = (goal: string) => {
+  const handleCampaignGoalToggle = useCallback((goal: string) => {
     setBrandCampaignGoal((prev) =>
       prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
     )
-  }
+  }, [])
 
-  const uploadProfileImage = async (file: File): Promise<string | null> => {
+  const uploadProfileImage = useCallback(async (file: File): Promise<string | null> => {
     try {
       const fileExt = file.name.split(".").pop()
       const fileName = `${Math.random()}.${fileExt}`
@@ -99,7 +99,7 @@ export default function SignupPage() {
       console.warn("Image upload error:", error)
       return null
     }
-  }
+  }, [supabase])
 
   const signupInfluencer = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -397,18 +397,61 @@ export default function SignupPage() {
                     <Label htmlFor="inf-location" className="text-gray-900">Location</Label>
                     <Select value={infLocation} onValueChange={setInfLocation}>
                       <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Seoul / Busan / Overseas etc." />
+                        <SelectValue placeholder="Select your state" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Seoul">Seoul</SelectItem>
-                        <SelectItem value="Busan">Busan</SelectItem>
-                        <SelectItem value="Incheon">Incheon</SelectItem>
-                        <SelectItem value="Daegu">Daegu</SelectItem>
-                        <SelectItem value="Daejeon">Daejeon</SelectItem>
-                        <SelectItem value="Gwangju">Gwangju</SelectItem>
-                        <SelectItem value="Ulsan">Ulsan</SelectItem>
+                        <SelectItem value="Alabama">Alabama</SelectItem>
+                        <SelectItem value="Alaska">Alaska</SelectItem>
+                        <SelectItem value="Arizona">Arizona</SelectItem>
+                        <SelectItem value="Arkansas">Arkansas</SelectItem>
+                        <SelectItem value="California">California</SelectItem>
+                        <SelectItem value="Colorado">Colorado</SelectItem>
+                        <SelectItem value="Connecticut">Connecticut</SelectItem>
+                        <SelectItem value="Delaware">Delaware</SelectItem>
+                        <SelectItem value="Florida">Florida</SelectItem>
+                        <SelectItem value="Georgia">Georgia</SelectItem>
+                        <SelectItem value="Hawaii">Hawaii</SelectItem>
+                        <SelectItem value="Idaho">Idaho</SelectItem>
+                        <SelectItem value="Illinois">Illinois</SelectItem>
+                        <SelectItem value="Indiana">Indiana</SelectItem>
+                        <SelectItem value="Iowa">Iowa</SelectItem>
+                        <SelectItem value="Kansas">Kansas</SelectItem>
+                        <SelectItem value="Kentucky">Kentucky</SelectItem>
+                        <SelectItem value="Louisiana">Louisiana</SelectItem>
+                        <SelectItem value="Maine">Maine</SelectItem>
+                        <SelectItem value="Maryland">Maryland</SelectItem>
+                        <SelectItem value="Massachusetts">Massachusetts</SelectItem>
+                        <SelectItem value="Michigan">Michigan</SelectItem>
+                        <SelectItem value="Minnesota">Minnesota</SelectItem>
+                        <SelectItem value="Mississippi">Mississippi</SelectItem>
+                        <SelectItem value="Missouri">Missouri</SelectItem>
+                        <SelectItem value="Montana">Montana</SelectItem>
+                        <SelectItem value="Nebraska">Nebraska</SelectItem>
+                        <SelectItem value="Nevada">Nevada</SelectItem>
+                        <SelectItem value="New Hampshire">New Hampshire</SelectItem>
+                        <SelectItem value="New Jersey">New Jersey</SelectItem>
+                        <SelectItem value="New Mexico">New Mexico</SelectItem>
+                        <SelectItem value="New York">New York</SelectItem>
+                        <SelectItem value="North Carolina">North Carolina</SelectItem>
+                        <SelectItem value="North Dakota">North Dakota</SelectItem>
+                        <SelectItem value="Ohio">Ohio</SelectItem>
+                        <SelectItem value="Oklahoma">Oklahoma</SelectItem>
+                        <SelectItem value="Oregon">Oregon</SelectItem>
+                        <SelectItem value="Pennsylvania">Pennsylvania</SelectItem>
+                        <SelectItem value="Rhode Island">Rhode Island</SelectItem>
+                        <SelectItem value="South Carolina">South Carolina</SelectItem>
+                        <SelectItem value="South Dakota">South Dakota</SelectItem>
+                        <SelectItem value="Tennessee">Tennessee</SelectItem>
+                        <SelectItem value="Texas">Texas</SelectItem>
+                        <SelectItem value="Utah">Utah</SelectItem>
+                        <SelectItem value="Vermont">Vermont</SelectItem>
+                        <SelectItem value="Virginia">Virginia</SelectItem>
+                        <SelectItem value="Washington">Washington</SelectItem>
+                        <SelectItem value="West Virginia">West Virginia</SelectItem>
+                        <SelectItem value="Wisconsin">Wisconsin</SelectItem>
+                        <SelectItem value="Wyoming">Wyoming</SelectItem>
+                        <SelectItem value="District of Columbia">District of Columbia</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
-                        <SelectItem value="Overseas">Overseas</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -419,7 +462,7 @@ export default function SignupPage() {
                       Main Platforms <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["Instagram", "YouTube", "TikTok"].map((platform) => (
+                      {useMemo(() => ["Instagram", "YouTube", "TikTok"], []).map((platform) => (
                         <Button
                           key={platform}
                           type="button"
@@ -476,7 +519,7 @@ export default function SignupPage() {
                       Main Categories <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["Beauty", "Fashion", "Health", "Food", "Travel", "IT"].map((category) => (
+                      {useMemo(() => ["Beauty", "Fashion", "Health", "Food", "Travel", "IT"], []).map((category) => (
                         <Button
                           key={category}
                           type="button"
@@ -501,7 +544,7 @@ export default function SignupPage() {
                       Preferred Collaboration Types <span className="text-primary">*</span>
                     </Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["Review", "Experience", "Paid Ad", "Joint Campaign"].map((type) => (
+                      {useMemo(() => ["Review", "Experience", "Paid Ad", "Joint Campaign"], []).map((type) => (
                         <Button
                           key={type}
                           type="button"
@@ -549,7 +592,7 @@ export default function SignupPage() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl font-medium mt-6 sticky bottom-4 md:static"
+                    className="w-full bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl font-medium mt-6"
                     size="lg"
                   >
                     {loading ? (
@@ -678,7 +721,7 @@ export default function SignupPage() {
                   <div>
                     <Label className="text-gray-900">Campaign Goals</Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["Brand Awareness", "Sales", "New Leads"].map((goal) => (
+                      {useMemo(() => ["Brand Awareness", "Sales", "New Leads"], []).map((goal) => (
                         <Button
                           key={goal}
                           type="button"
@@ -716,7 +759,7 @@ export default function SignupPage() {
                   <div>
                     <Label className="text-gray-900">Preferred Platforms</Label>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      {["Instagram", "YouTube", "TikTok"].map((platform) => (
+                      {useMemo(() => ["Instagram", "YouTube", "TikTok"], []).map((platform) => (
                         <Button
                           key={platform}
                           type="button"
@@ -738,7 +781,7 @@ export default function SignupPage() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl font-medium mt-6 sticky bottom-4 md:static"
+                    className="w-full bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl font-medium mt-6"
                     size="lg"
                   >
                     {loading ? (

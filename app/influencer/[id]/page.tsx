@@ -339,14 +339,14 @@ export default function InfluencerDetailPage() {
           console.warn("Supabase campaign query error:", supabaseError)
         }
 
-        // 더미 캠페인 데이터
+        // Dummy campaign data
         const dummyCampaigns = [
           {
             id: "1",
             influencer_id: id,
             brand_id: "brand-1",
-            campaign_name: "봄 신제품 런칭 캠페인",
-            brand_name: "패션 브랜드 A",
+            campaign_name: "Spring New Product Launch Campaign",
+            brand_name: "Fashion Brand A",
             start_date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             status: "completed",
@@ -355,15 +355,15 @@ export default function InfluencerDetailPage() {
             engagement_rate: 4.2,
             budget: 5000000,
             is_private: false,
-            ai_summary: "이번 캠페인은 예상보다 높은 참여율을 보였습니다. 타겟 오디언스의 반응이 매우 긍정적이며, 브랜드 인지도 향상에 기여했습니다.",
-            brand_feedback: "매우 만족스러운 결과였습니다.",
+            ai_summary: "This campaign showed higher engagement rates than expected. The target audience responded very positively, contributing to increased brand awareness.",
+            brand_feedback: "Very satisfactory results.",
           },
           {
             id: "2",
             influencer_id: id,
             brand_id: "brand-2",
-            campaign_name: "신제품 체험단",
-            brand_name: "뷰티 브랜드 B",
+            campaign_name: "New Product Experience Campaign",
+            brand_name: "Beauty Brand B",
             start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
             status: "ongoing",
@@ -372,15 +372,15 @@ export default function InfluencerDetailPage() {
             engagement_rate: 5.1,
             budget: 8000000,
             is_private: false,
-            ai_summary: "현재 진행 중인 캠페인으로, 초기 성과가 기대치를 상회하고 있습니다.",
+            ai_summary: "This is an ongoing campaign, and initial performance is exceeding expectations.",
             brand_feedback: null,
           },
           {
             id: "3",
             influencer_id: id,
             brand_id: "brand-3",
-            campaign_name: "비공개 캠페인",
-            brand_name: "라이프스타일 브랜드 C",
+            campaign_name: "Private Campaign",
+            brand_name: "Lifestyle Brand C",
             start_date: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
             end_date: new Date(Date.now() + 40 * 24 * 60 * 60 * 1000).toISOString(),
             status: "private",
@@ -475,7 +475,7 @@ export default function InfluencerDetailPage() {
             <CardHeader>
               <div className="flex items-start gap-6 flex-wrap">
                 {/* Profile image */}
-                <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
                   {influencer.profile_image ? (
                     <Image
                       src={influencer.profile_image}
@@ -485,60 +485,67 @@ export default function InfluencerDetailPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <Users className="w-12 h-12 text-gray-400" />
+                    <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-400" />
                   )}
                 </div>
 
                 {/* Profile information */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-4 mb-2 flex-wrap">
-                    <CardTitle className="text-3xl text-gray-900">
+                  <div className="flex items-center gap-2 sm:gap-4 mb-2 flex-wrap">
+                    <CardTitle className="text-xl sm:text-2xl md:text-3xl text-gray-900 break-words">
                       {influencer.channel_name || influencer.name || "Channel Name"}
                     </CardTitle>
-                    <div className="flex gap-2 items-center">
-                      {influencer?.platforms?.includes("instagram") && (
-                        <button
-                          onClick={() => setIsChannelModalOpen(true)}
-                          className="hover:opacity-70 transition-opacity"
-                        >
-                          <Instagram className="w-6 h-6 text-gray-400" />
-                        </button>
-                      )}
-                      {influencer?.platforms?.includes("youtube") && (
-                        <button
-                          onClick={() => setIsChannelModalOpen(true)}
-                          className="hover:opacity-70 transition-opacity"
-                        >
-                          <Youtube className="w-6 h-6 text-gray-400" />
-                        </button>
-                      )}
-                      {influencer?.platforms?.includes("tiktok") && (
-                        <button
-                          onClick={() => setIsChannelModalOpen(true)}
-                          className="hover:opacity-70 transition-opacity"
-                        >
-                          <Music className="w-6 h-6 text-gray-400" />
-                        </button>
-                      )}
-                      {influencer?.platforms?.includes("facebook") && (
-                        <button
-                          onClick={() => setIsChannelModalOpen(true)}
-                          className="hover:opacity-70 transition-opacity"
-                        >
-                          <Facebook className="w-6 h-6 text-gray-400" />
-                        </button>
-                      )}
+                    <div className="flex gap-2 items-center flex-wrap">
+                      <div className="flex gap-1 sm:gap-2">
+                        {influencer?.platforms?.includes("instagram") && (
+                          <button
+                            onClick={() => setIsChannelModalOpen(true)}
+                            className="hover:opacity-70 transition-opacity p-1"
+                            aria-label="Instagram"
+                          >
+                            <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
+                          </button>
+                        )}
+                        {influencer?.platforms?.includes("youtube") && (
+                          <button
+                            onClick={() => setIsChannelModalOpen(true)}
+                            className="hover:opacity-70 transition-opacity p-1"
+                            aria-label="YouTube"
+                          >
+                            <Youtube className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
+                          </button>
+                        )}
+                        {influencer?.platforms?.includes("tiktok") && (
+                          <button
+                            onClick={() => setIsChannelModalOpen(true)}
+                            className="hover:opacity-70 transition-opacity p-1"
+                            aria-label="TikTok"
+                          >
+                            <Music className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
+                          </button>
+                        )}
+                        {influencer?.platforms?.includes("facebook") && (
+                          <button
+                            onClick={() => setIsChannelModalOpen(true)}
+                            className="hover:opacity-70 transition-opacity p-1"
+                            aria-label="Facebook"
+                          >
+                            <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
+                          </button>
+                        )}
+                      </div>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => setIsChannelModalOpen(true)}
-                        className="text-primary hover:bg-primary/5"
+                        className="text-primary hover:bg-primary/5 text-xs sm:text-sm"
                       >
-                        Channel Shortcut
+                        <span className="hidden sm:inline">Channel Shortcut</span>
+                        <span className="sm:hidden">Channels</span>
                       </Button>
                     </div>
                   </div>
-                  <CardDescription className="text-lg text-primary/70 mb-2">
+                  <CardDescription className="text-base sm:text-lg text-primary/70 mb-2">
                     {formatNumber(influencer.followers || 0)} followers
                   </CardDescription>
                   {influencer.bio && (
@@ -560,23 +567,25 @@ export default function InfluencerDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="flex gap-3 flex-wrap">
+                  <div className="flex flex-col sm:flex-row gap-3">
                     <Button 
                       onClick={() => setIsProposalModalOpen(true)} 
                       size="lg" 
-                      className="bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl"
+                      className="bg-[#0066FF] hover:bg-[#0055DD] text-white rounded-xl flex-1 sm:flex-initial"
                     >
                       <MessageCircle className="w-4 h-4 mr-2" />
-                      Contact
+                      <span className="hidden sm:inline">Contact</span>
+                      <span className="sm:hidden">Contact</span>
                     </Button>
                     <Button 
                       onClick={handleGenerateInsight} 
-                      size="lg" 
+                      size="lg"
                       variant="outline"
-                      className="border-primary text-primary hover:bg-primary/5 rounded-xl"
+                      className="border-primary text-primary hover:bg-primary/5 rounded-xl flex-1 sm:flex-initial text-sm sm:text-base"
                     >
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      View AI Insight Summary
+                      <Sparkles className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="hidden lg:inline">View AI Insight Summary</span>
+                      <span className="lg:hidden">AI Insight</span>
                     </Button>
                   </div>
                 </div>
@@ -587,10 +596,10 @@ export default function InfluencerDetailPage() {
 
         {/* Tabs */}
         <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="bg-gray-100 rounded-xl">
-            <TabsTrigger value="content" className="rounded-lg">Content</TabsTrigger>
-            <TabsTrigger value="insights" className="rounded-lg">Insights</TabsTrigger>
-            <TabsTrigger value="campaigns" className="rounded-lg">Campaign History</TabsTrigger>
+          <TabsList className="bg-gray-100 rounded-xl flex-wrap">
+            <TabsTrigger value="content" className="rounded-lg text-xs sm:text-sm">Content</TabsTrigger>
+            <TabsTrigger value="insights" className="rounded-lg text-xs sm:text-sm">Insights</TabsTrigger>
+            <TabsTrigger value="campaigns" className="rounded-lg text-xs sm:text-sm">Campaign History</TabsTrigger>
           </TabsList>
 
           {/* Content tab */}
